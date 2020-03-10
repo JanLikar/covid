@@ -62,7 +62,7 @@
     var initial_lat = window.localStorage.getItem('lat') || default_location[0];
     var initial_lon = window.localStorage.getItem('lon') || default_location[1];
 
-    map.setView([initial_lat, initial_lon], 13);
+    map.setView([initial_lat, initial_lon], 8);
 
   	L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 19,
