@@ -41,7 +41,7 @@
     <a href="#" id="use-my-location" data-toggle="tooltip" title="Uses your browser's local storage">Use my location</a>
     <div id="mapid"></div>
     <input type="date" id="map-filter-start" name="map-filter-start" value="2020-03-10" min="2020-03-10" max="{{ isotoday }}">
-    <input type="date" id="map-filter-end" name="map-filter-end" value="{{ isotoday }}" min="2020-03-10" max="today">
+    <input type="date" id="map-filter-end" name="map-filter-end" value="{{ isotoday }}" min="2020-03-10" max="{{ isotoday }}">
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -56,10 +56,13 @@
     <script>
 	  var map = L.map('mapid')
 
-  	// London
-  	var default_location = [51.505, -0.09]
+    // London
+    var default_location = [51.505, -0.09]
 
-    map.setView(default_location, 13);
+    var initial_lat = window.localStorage.getItem('lat') || default_location[0];
+    var initial_lon = window.localStorage.getItem('lon') || default_location[1];
+
+    map.setView([initial_lat, initial_lon], 13);
 
   	L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 19,
@@ -82,6 +85,8 @@
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
           function (position){
+            window.localStorage.setItem('lat', position.coords.latitude)
+            window.localStorage.setItem('lon', position.coords.longitude)
             map.panTo(new L.LatLng(position.coords.latitude, position.coords.longitude));
           },
           function(e) {console.log(e)}
