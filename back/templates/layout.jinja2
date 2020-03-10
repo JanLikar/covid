@@ -67,7 +67,7 @@
           fillOpacity: 0.5,
           radius: 20
         }).addTo(map);
-        circle.bindPopup("<b>" + val.name + "</b>" + val.note);
+        circle.bindPopup(val.datetime + " <b>" + val.name + "</b><br/>" + val.note);
       });
     });
 

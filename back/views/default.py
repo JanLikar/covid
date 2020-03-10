@@ -31,6 +31,7 @@ def list_locations(request):
 	return [
 		{'lon': 0.0, 'lat': 0.0, 'name': 'Some random location', 'note': 'I was there from 12:45 until 13:30.'},
 		{'lon': 5.0, 'lat': 5.0, 'name': 'Some random location', 'note': 'I was there from 12:45 until 13:30.'},
+		{'lon': -0.31, 'lat': 51.4, 'name': 'Some London location', 'note': 'Nothing more to say', 'datetime': '2020-03-20'},
 	]
 
 
