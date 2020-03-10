@@ -21,6 +21,14 @@ def mark_location(request):
 	return {'isotoday': '2020-03-10'}
 
 
+@view_config(route_name='list_locations', renderer='json')
+def list_locations(request):
+	return [
+		{'lon': 0.0, 'lat': 0.0, 'name': 'Some random location', 'note': 'I was there from 12:45 until 13:30.'},
+		{'lon': 5.0, 'lat': 5.0, 'name': 'Some random location', 'note': 'I was there from 12:45 until 13:30.'},
+	]
+
+
 db_err_msg = """\
 Pyramid is having a problem using your SQL database.  The problem
 might be caused by one of the following things:
