@@ -16,6 +16,11 @@ def my_view(request):
     return {'isotoday': '2020-03-10'}
 
 
+@view_config(route_name='mark_location', renderer='../templates/mark_location.jinja2')
+def mark_location(request):
+	return {'isotoday': '2020-03-10'}
+
+
 db_err_msg = """\
 Pyramid is having a problem using your SQL database.  The problem
 might be caused by one of the following things:

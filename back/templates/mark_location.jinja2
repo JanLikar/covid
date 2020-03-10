@@ -24,24 +24,19 @@
 
     <div class="row mb-4">
       <div class="col-sm">
-        <h4>Infected with Covid-19?</h4>
-        Mark your movement on the map to notify people that were in contact with you.
-        <a class="btn btn-primary" href="/mark_location" role="button">Mark your movement on the map</a>
+
       </div>
       <div class="col-sm">
 
       </div>
       <div class="col-sm">
-        <h4>Notificiation service</h4>
-        Receive a notification if one of the places you regulary visit
+
       </div>
     </div>
   </div>
 
     <a href="#" id="use-my-location">Use my location</a>
     <div id="mapid"></div>
-    <input type="date" id="map-filter-start" name="map-filter-start" value="2020-03-10" min="2020-03-10" max="{{ isotoday }}">
-    <input type="date" id="map-filter-end" name="map-filter-end" value="{{ isotoday }}" min="2020-03-10" max="today">
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -66,15 +61,6 @@
         attribution: '&copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap contributors</a>'
       }).addTo(map);
 
-  	var circle = L.circle([51.508, -0.11], {
-  	    color: 'red',
-  	    fillColor: '#f03',
-  	    fillOpacity: 0.5,
-  	    radius: 20
-  	}).addTo(map);
-
-  	circle.bindPopup("<b>10th of March, 12:40</b>: The Wheel Restaurant");
-
     $("#use-my-location").click(function() {
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
@@ -86,6 +72,41 @@
       };
     });
 
+    var marker;
+    map.on('click', function(e) {
+    if(marker)
+      map.removeLayer(marker);
+    console.log(e.latlng); // e is an event object (MouseEvent in this case)
+    marker = L.marker(e.latlng).addTo(map);
+    $("#lat").val(e.latlng.lat);
+    $("#lon").val(e.latlng.lng);
+    });
+
+    // A hack to make the form fields required and read-only at the same time.
+    $(".readonly").on('keydown paste', function(e){
+        e.preventDefault();
+    });
+
     </script>
+
+  <form>
+    <div class="form-group row">
+      <label for="lat" class="col-sm-2 col-form-label">Latitude</label>
+      <div class="col-sm-10">
+        <input type="text" id="lat" class="form-control-plaintext readonly" name="lat" placeholder="click on the map" required />
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="lon" class="col-sm-2 col-form-label">Longitude</label>
+      <div class="col-sm-10">
+        <input type="text" id="lon" class="form-control-plaintext readonly" name="lon" placeholder="click on the map" required />
+      </div>
+    </div>
+    <div class="form-group row">
+      <div class="col-sm-10">
+        <button class="btn btn-primary" type="submit">Add</button>
+      </div>
+    </div>
+  </form>
   </body>
 </html>
