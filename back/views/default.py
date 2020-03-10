@@ -1,9 +1,14 @@
+from datetime import datetime
 from pyramid.view import view_config
 from pyramid.response import Response
 
 from sqlalchemy.exc import DBAPIError
 
 from .. import models
+
+
+def get_iso_date():
+    return datetime.utcnow().strftime('%Y-%m-%d')
 
 
 @view_config(route_name='home', renderer='../templates/index.jinja2')
@@ -13,12 +18,12 @@ def my_view(request):
         one = query.filter(models.MyModel.name == 'one').first()
     except DBAPIError:
         return Response(db_err_msg, content_type='text/plain', status=500)
-    return {'isotoday': '2020-03-10'}
+    return {'isotoday': get_iso_date()}
 
 
 @view_config(route_name='mark_location', renderer='../templates/mark_location.jinja2')
 def mark_location(request):
-	return {'isotoday': '2020-03-10'}
+	return {'isotoday': get_iso_date()}
 
 
 @view_config(route_name='list_locations', renderer='json')
