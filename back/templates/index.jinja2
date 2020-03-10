@@ -96,7 +96,16 @@
 
   	circle.bindPopup("<b>10th of March, 12:40</b>: The Wheel Restaurant");
 
-
+    $("#use-my-location").click(function() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          function (position){
+            map.panTo(new L.LatLng(position.coords.latitude, position.coords.longitude));
+          },
+          function(e) {console.log(e)}
+        );
+      };
+    });
 
     </script>
   </body>
