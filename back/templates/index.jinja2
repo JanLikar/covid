@@ -2,25 +2,21 @@
 {% block content %}
 
 <div class="container">
-  <h1>Covid-19 tracker</h1>
+  <h1>{{ _("title") }}</h1>
 
   <div class="row mb-4">
     <div class="col-sm">
-      <h4>Infected with Covid-19?</h4>
-      Mark your movement on the map to notify people that were in contact with you.
-      <a class="btn btn-primary" href="{{ request.route_url('add_marker') }}" role="button">Mark your movement on the map</a>
+      <h4>{{ _("call_to_action_title") }}</h4>
+      <p>{{ _("call_to_action_text") }}</p>
+      <a class="btn btn-primary" href="{{ request.route_url('add_marker') }}" role="button">{{ _("call_to_action_button") }}</a>
     </div>
     <div class="col-sm">
 
-    </div>
-    <div class="col-sm">
-      <h4>Notificiation service</h4>
-      Receive a notification if one of the places you regulary visit
     </div>
   </div>
 </div>
 
-  <a href="javascript:;" id="use-my-location" data-toggle="tooltip" title="Uses your browser's local storage">Use my location</a>
+  <a href="javascript:;" id="use-my-location" data-toggle="tooltip" title="{{ _('use_my_location_tooltip') }}">{{ _("use_my_location") }}</a>
   <div id="mapid"></div>
   <input type="date" id="map-filter-start" name="map-filter-start" value="2020-03-10" min="2020-03-10" max="{{ isotoday }}">
   <input type="date" id="map-filter-end" name="map-filter-end" value="{{ isotoday }}" min="2020-03-10" max="{{ isotoday }}">

@@ -1,0 +1,44 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+
+msgid "title"
+msgstr ""
+
+msgid "use_my_location"
+msgstr ""
+
+msgid "use_my_location_tooltip"
+msgstr ""
+
+# index.jinja2
+msgid "call_to_action_title"
+msgstr ""
+
+msgid "call_to_action_text"
+msgstr ""
+
+msgid "call_to_action_button"
+msgstr ""
+
+# add_marker.jinja2
+msgid "marker_form_label_click_on_the_map"
+msgstr ""
+
+msgid "marker_form_label_latitude"
+msgstr ""
+
+msgid "marker_form_label_longitude"
+msgstr ""
+
+msgid "marker_form_label_date"
+msgstr ""
+
+msgid "marker_form_label_location_name"
+msgstr ""
+
+msgid "marker_form_label_additional_information"
+msgstr ""
+
+msgid "marker_form_submit_button"
+msgstr ""
