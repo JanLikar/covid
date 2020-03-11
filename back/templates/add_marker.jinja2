@@ -81,7 +81,6 @@
             data: $(this).serialize(),
             dataType: 'json',
             success: function( data ) {
-              //marker_data = objectifyForm($(form_selector).serializeArray());
               var new_marker_data = data;
               new_marker_data.owned = true;
               new_marker = add_map_marker(map, new_marker_data);

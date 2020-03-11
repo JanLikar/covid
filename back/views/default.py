@@ -32,13 +32,13 @@ def home(request):
     return {'isotoday': get_iso_date()}
 
 
-@view_config(route_name='mark_location', renderer='../templates/mark_location.jinja2', request_method='GET')
-def mark_location(request):
+@view_config(route_name='add_marker', renderer='../templates/add_marker.jinja2', request_method='GET')
+def add_marker(request):
 	return {'isotoday': get_iso_date()}
 
 
-@view_config(route_name='mark_location', xhr=True, renderer='json', request_method='POST')
-def mark_location_post(request):
+@view_config(route_name='add_marker', xhr=True, renderer='json', request_method='POST')
+def add_marker_post(request):
 	latitude = request.params.get('lat')
 	longitude = request.params.get('lon')
 	name = request.params.get('name')
@@ -72,8 +72,8 @@ def remove_marker(request):
 	return {}
 
 
-@view_config(route_name='list_locations', renderer='json')
-def list_locations(request):
+@view_config(route_name='list_markers', renderer='json')
+def list_markers(request):
 	markers = []
 
 	for m in request.dbsession.query(models.Marker):

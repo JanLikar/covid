@@ -60,11 +60,13 @@
         attribution: '&copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap contributors</a>'
       }).addTo(map);
 
-    $.getJSON("/list_locations", function( data ) {
+
+    $.getJSON("/list-markers", function( data ) {
       $.each( data, function( key, val ) {
         markers[val.id] = add_map_marker(map, val)
       });
     });
+
 
     $("#use-my-location").click(function() {
       if (navigator.geolocation) {
@@ -103,8 +105,8 @@
       return circle;
     };
 
-    $(document).on('click', '.remove-marker', function (e) {
 
+    $(document).on('click', '.remove-marker', function (e) {
       $.ajax({
         url: '/remove-marker/' + $(this).data('marker-id'),
         type: 'POST',
@@ -120,14 +122,6 @@
       });
   });
 
-
-  function objectifyForm(formArray) {//serialize data function
-    var returnArray = {};
-    for (var i = 0; i < formArray.length; i++){
-      returnArray[formArray[i]['name']] = formArray[i]['value'];
-    }
-    return returnArray;
-  };
   </script>
     {% block bottom_js %}
     {% endblock %}
