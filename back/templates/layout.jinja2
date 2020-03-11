@@ -61,13 +61,7 @@
 
     $.getJSON("/list_locations", function( data ) {
       $.each( data, function( key, val ) {
-        var circle = L.circle([val.lat, val.lon], {
-          color: 'red',
-          fillColor: '#f03',
-          fillOpacity: 0.5,
-          radius: 20
-        }).addTo(map);
-        circle.bindPopup(val.reported_date + " <b>" + val.name + "</b><br/>" + val.note);
+        add_map_marker(map, val)
       });
     });
 
@@ -83,7 +77,26 @@
         );
       };
     });
-    </script>
+
+    function add_map_marker(map, val) {
+      var circle = L.circle([val.lat, val.lon], {
+          color: 'red',
+          fillColor: '#f03',
+          fillOpacity: 0.5,
+          radius: 20
+        }).addTo(map);
+        circle.bindPopup(val.reported_date + " <b>" + val.name + "</b><br/>" + val.note);
+    };
+
+
+  function objectifyForm(formArray) {//serialize data function
+    var returnArray = {};
+    for (var i = 0; i < formArray.length; i++){
+      returnArray[formArray[i]['name']] = formArray[i]['value'];
+    }
+    return returnArray;
+  };
+  </script>
     {% block bottom_js %}
     {% endblock %}
   </body>

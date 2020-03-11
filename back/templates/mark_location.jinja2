@@ -20,7 +20,7 @@
     <div id="mapid"></div>
 
   <div class="container mt-3">
-    <form method="POST">
+    <form method="POST" id="add-location">
       <div class="form-group row">
         <label for="lat" class="col-sm-2 col-form-label">Latitude</label>
         <div class="col-sm-10">
@@ -55,17 +55,34 @@
   <script>
     var marker;
     map.on('click', function(e) {
-    if(marker)
-      map.removeLayer(marker);
-    console.log(e.latlng); // e is an event object (MouseEvent in this case)
-    marker = L.marker(e.latlng).addTo(map);
-    $("#lat").val(e.latlng.lat);
-    $("#lon").val(e.latlng.lng);
+      if(marker)
+        map.removeLayer(marker);
+      marker = L.marker(e.latlng).addTo(map);
+      $("#lat").val(e.latlng.lat);
+      $("#lon").val(e.latlng.lng);
     });
 
     // A hack to make the form fields required and read-only at the same time.
     $(".readonly").on('keydown paste', function(e){
         e.preventDefault();
+    });
+
+    var form_selector = 'form#add-location'
+    $(document).on('submit', form_selector, function() {
+        $.ajax({
+            url: $(this).attr('action'),
+            type: $(this).attr('method'),
+            data: $(this).serialize(),
+            success: function( data ) {
+              add_map_marker(map, objectifyForm($(form_selector).serializeArray()));
+              map.removeLayer(marker);
+              $(form_selector).trigger('reset');
+            },
+            error: function( xhr, err ) {
+              alert(err);
+            }
+        });
+        return false;
     });
 
   </script>

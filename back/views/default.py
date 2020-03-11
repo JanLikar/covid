@@ -1,4 +1,4 @@
-from datetime import datetime
+import datetime
 from pyramid.view import view_config
 from pyramid.response import Response
 
@@ -8,7 +8,7 @@ from .. import models
 
 
 def get_iso_date():
-    return datetime.utcnow().strftime('%Y-%m-%d')
+    return datetime.datetime.utcnow().strftime('%Y-%m-%d')
 
 
 @view_config(route_name='home', renderer='../templates/index.jinja2')
@@ -16,8 +16,27 @@ def home(request):
     return {'isotoday': get_iso_date()}
 
 
-@view_config(route_name='mark_location', renderer='../templates/mark_location.jinja2')
+@view_config(route_name='mark_location', renderer='../templates/mark_location.jinja2', request_method='GET')
 def mark_location(request):
+	return {'isotoday': get_iso_date()}
+
+
+@view_config(route_name='mark_location', renderer='../templates/mark_location.jinja2', request_method='POST')
+def mark_location_post(request):
+	latitude = request.params.get('lat')
+	longitude = request.params.get('lon')
+	name = request.params.get('name')
+	note = request.params.get('note')
+	reported_date = datetime.date.today() #request.params.get('reported_date')
+
+	request.dbsession.add(models.Marker(
+		latitude=latitude,
+		longitude=longitude,
+		name=name,
+		note=note,
+		reported_date=reported_date,
+	))
+
 	return {'isotoday': get_iso_date()}
 
 
