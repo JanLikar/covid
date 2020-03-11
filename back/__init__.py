@@ -8,5 +8,15 @@ def main(global_config, **settings):
         config.include('.models')
         config.include('pyramid_jinja2')
         config.include('.routes')
+
+        setup_auth(config)
+
         config.scan()
     return config.make_wsgi_app()
+
+
+def setup_auth(config):
+	def get_user_id(request):
+		return 1
+
+	config.add_request_method(get_user_id, 'user_id', reify=True)

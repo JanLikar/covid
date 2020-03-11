@@ -16,7 +16,7 @@
     </div>
   </div>
 
-    <a href="#" id="use-my-location" data-toggle="tooltip" title="Uses your browser's local storage">Use my location</a>
+    <a href="javascript:;" id="use-my-location" data-toggle="tooltip" title="Uses your browser's local storage">Use my location</a>
     <div id="mapid"></div>
 
   <div class="container mt-3">
@@ -73,8 +73,10 @@
             url: $(this).attr('action'),
             type: $(this).attr('method'),
             data: $(this).serialize(),
+            dataType: 'json',
             success: function( data ) {
-              marker_data = objectifyForm($(form_selector).serializeArray());
+              //marker_data = objectifyForm($(form_selector).serializeArray());
+              marker_data = data;
               marker_data.owned = true;
               add_map_marker(map, marker_data);
               map.removeLayer(marker);

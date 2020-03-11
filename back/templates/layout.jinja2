@@ -90,8 +90,29 @@
           fillOpacity: 0.5,
           radius: 20
         }).addTo(map);
-        circle.bindPopup(val.reported_date + " <b>" + val.name + "</b><br/>" + val.note);
+
+      var popup = val.reported_date + " <b>" + val.name + "</b><br/><br/>" + val.note;
+
+      if(val.owned) {
+        popup = popup + '<br/><a href="javascript:;" class="remove-marker" data-marker-id="' + val.id +'">Delete marker</a>';
+      };
+
+      circle.bindPopup(popup)
     };
+
+    $(document).on('click', '.remove-marker', function (e) {
+
+      $.ajax({
+        url: '/remove-marker/' + $(this).data('marker-id'),
+        type: 'POST',
+        success: function( data ) {
+
+        },
+        error: function( xhr, err ) {
+          alert(err);
+        }
+      });
+  });
 
 
   function objectifyForm(formArray) {//serialize data function

@@ -21,4 +21,5 @@ class Marker(Base):
     note = Column(Text(length=500), default='', nullable=False)
     reported_date = Column(Date, nullable=False)
     created = Column(DateTime(timezone=True), default=func.now(), nullable=False)
-    updated = Column(DateTime(timezone=True), onupdate=func.now(), nullable=False)
+    updated = Column(DateTime(timezone=True), default=func.now(), onupdate=func.now(), nullable=False)
+    user_id = Column(Integer, default=0, nullable=False)
