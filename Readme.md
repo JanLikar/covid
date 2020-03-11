@@ -1,4 +1,4 @@
-# COVID-19 map
+# COVID-19 Tracker
 A map that allows people with COVID-19 mark their past locations to warn others that might have come into contact with them.
 
 
@@ -8,4 +8,4 @@ A map that allows people with COVID-19 mark their past locations to warn others 
 ## Contributing
 Pull requests are kindly accepted. Please assign yourself to a ticket, before starting.
 
-See README.txt for environment setup, 
+See README.txt for environment setup.
