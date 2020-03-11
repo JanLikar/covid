@@ -36,7 +36,7 @@
       <div class="form-group row">
         <label for="reported_date" class="col-sm-2 col-form-label">Date</label>
         <div class="col-sm-10">
-          <input type="date" id="reported_date" name="reported_date" min="2020-01-01" max="{{ isotoday }}" required>
+          <input type="date" id="reported_date" name="reported_date" value="{{ isotoday }}" min="2020-01-01" max="{{ isotoday }}" required>
         </div>
       </div>
       <div class="form-group row">
@@ -82,9 +82,10 @@
             dataType: 'json',
             success: function( data ) {
               //marker_data = objectifyForm($(form_selector).serializeArray());
-              marker_data = data;
-              marker_data.owned = true;
-              add_map_marker(map, marker_data);
+              var new_marker_data = data;
+              new_marker_data.owned = true;
+              new_marker = add_map_marker(map, new_marker_data);
+              markers[new_marker_data.id] = new_marker;
               map.removeLayer(marker);
               $(form_selector).trigger('reset');
             },

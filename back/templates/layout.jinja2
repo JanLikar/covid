@@ -44,7 +44,8 @@
     crossorigin=""></script>
 
     <script>
-    var map = L.map('mapid')
+    var map = L.map('mapid');
+    var markers = {};
 
     // London
     var default_location = [51.505, -0.09]
@@ -61,7 +62,7 @@
 
     $.getJSON("/list_locations", function( data ) {
       $.each( data, function( key, val ) {
-        add_map_marker(map, val)
+        markers[val.id] = add_map_marker(map, val)
       });
     });
 
@@ -77,6 +78,7 @@
         );
       };
     });
+
 
     function add_map_marker(map, val) {
       color = 'red'
@@ -97,7 +99,8 @@
         popup = popup + '<br/><a href="javascript:;" class="remove-marker" data-marker-id="' + val.id +'">Delete marker</a>';
       };
 
-      circle.bindPopup(popup)
+      circle.bindPopup(popup);
+      return circle;
     };
 
     $(document).on('click', '.remove-marker', function (e) {
@@ -106,7 +109,10 @@
         url: '/remove-marker/' + $(this).data('marker-id'),
         type: 'POST',
         success: function( data ) {
-
+          marker_id = parseInt(e.target.getAttribute("data-marker-id"));
+          console.log(markers[marker_id]);
+          map.removeLayer(markers[marker_id]);
+          delete markers[marker_id];
         },
         error: function( xhr, err ) {
           alert(err);
