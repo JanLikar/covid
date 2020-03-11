@@ -11,6 +11,10 @@ def get_iso_date():
     return datetime.datetime.utcnow().strftime('%Y-%m-%d')
 
 
+def parse_iso_date(date):
+	return datetime.datetime.strptime(date, '%Y-%m-%d').date()
+
+
 def marker_to_dict(marker, user_id):
 	return {
 		'id': marker.id,
@@ -39,7 +43,7 @@ def mark_location_post(request):
 	longitude = request.params.get('lon')
 	name = request.params.get('name')
 	note = request.params.get('note')
-	reported_date = datetime.date.today() #request.params.get('reported_date')
+	reported_date = parse_iso_date(request.params.get('reported_date'))
 
 	new_marker = models.Marker(
 		latitude=latitude,
