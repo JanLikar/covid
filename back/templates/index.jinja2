@@ -11,7 +11,6 @@
       <a class="btn btn-primary" href="{{ request.route_url('add_marker') }}" role="button">{{ _("call_to_action_button") }}</a>
     </div>
     <div class="col-sm">
-
     </div>
   </div>
 </div>
@@ -20,5 +19,36 @@
   <div id="mapid"></div>
   <input type="date" id="map-filter-start" name="map-filter-start" value="2020-03-10" min="2020-03-10" max="{{ isotoday }}">
   <input type="date" id="map-filter-end" name="map-filter-end" value="{{ isotoday }}" min="2020-03-10" max="{{ isotoday }}">
+
+    <!-- Passphrase Popup start -->
+    <div class="modal fade" id="passphrase-popup" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Anonymised login</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <form>
+            <div class="modal-body">
+              <p class="lead">In order to keep anonymity of people reporting on the Covid virus, we use Diceware passphrase, which provides "strong, yet easy to remember passphrase for use with encryption and security programs."</p>
+              <p>The reason why even such a login exists is to enable people to return back to the application and change the status of markers, once more information is available. A typical case would be when a person would decide to self-isolate due to being in potential contact with an infected person, and would place markers to indicate a <em>potential infection</em>, while waiting for results of the blood testing for the virus. If the test later confirm the infection, then the login allows the person to change the status of previously placed markers to <em>confirmed infection</em>, or delete them if the results show the person is healthy.</p>
+              <p class="lead"><b>Want to start a new session?</b></p>
+              <p >Use the Diceware passphrase below, but <b>first make sure to copy the passphrase and paste it into your password manager, or store it somewhere safe</b> so you can reuse it in the future!</p>
+
+              <p>New passphrase: <code>{{ passphrase }}</code></p>
+              <input type="text" placeholder="Enter passphrase" class="form-control" id="passphrase" required>
+
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary" submit>Login</button>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <!-- Passphrase Popup end-->
 
 {% endblock %}

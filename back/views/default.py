@@ -3,7 +3,7 @@ from pyramid.view import view_config
 from pyramid.response import Response
 
 from sqlalchemy.exc import DBAPIError
-
+from ..utils import get_passphrase
 from .. import models
 
 
@@ -29,8 +29,11 @@ def marker_to_dict(marker, user_id):
 
 @view_config(route_name='home', renderer='../templates/index.jinja2')
 def home(request):
-    return {'isotoday': get_iso_date()}
 
+    passphrase = get_passphrase()
+
+    return {'isotoday': get_iso_date(),
+            'passphrase': passphrase}
 
 @view_config(route_name='add_marker', renderer='../templates/add_marker.jinja2', request_method='GET')
 def add_marker(request):
