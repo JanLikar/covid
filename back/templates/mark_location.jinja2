@@ -74,7 +74,9 @@
             type: $(this).attr('method'),
             data: $(this).serialize(),
             success: function( data ) {
-              add_map_marker(map, objectifyForm($(form_selector).serializeArray()));
+              marker_data = objectifyForm($(form_selector).serializeArray());
+              marker_data.owned = true;
+              add_map_marker(map, marker_data);
               map.removeLayer(marker);
               $(form_selector).trigger('reset');
             },

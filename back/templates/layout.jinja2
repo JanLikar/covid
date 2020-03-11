@@ -79,8 +79,13 @@
     });
 
     function add_map_marker(map, val) {
+      color = 'red'
+      if(val.owned) {
+        color = 'blue'
+      }
+
       var circle = L.circle([val.lat, val.lon], {
-          color: 'red',
+          color: color,
           fillColor: '#f03',
           fillOpacity: 0.5,
           radius: 20

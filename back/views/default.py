@@ -51,6 +51,7 @@ def list_locations(request):
 			'name': m.name,
 			'note': m.note,
 			'reported_date': m.reported_date.strftime('%Y-%m-%d'),
+			'owned': False,
 		})
 
 
