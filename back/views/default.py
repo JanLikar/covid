@@ -35,8 +35,21 @@ def home(request):
     return {'isotoday': get_iso_date(),
             'passphrase': passphrase}
 
-@view_config(route_name='add_marker', renderer='../templates/add_marker.jinja2', request_method='GET')
-def add_marker(request):
+@view_config(route_name='home', renderer='../templates/index.jinja2',request_method='POST')
+def my_view_handler(request):
+    try:
+        query = request.dbsession.query(models.MyModel)
+        one = query.filter(models.MyModel.name == 'one').first()
+    except DBAPIError:
+        return Response(db_err_msg, content_type='text/plain', status=500)
+
+    passphrase = get_passphrase()
+
+    return {'isotoday': '2020-03-10',
+            'passphrase': passphrase}
+
+@view_config(route_name='mark_location', renderer='../templates/mark_location.jinja2')
+def mark_location(request):
 	return {'isotoday': get_iso_date()}
 
 
