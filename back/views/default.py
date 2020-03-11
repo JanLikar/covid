@@ -11,7 +11,7 @@ def get_iso_date():
     return datetime.datetime.utcnow().strftime('%Y-%m-%d')
 
 
-def marker_to_dict(marker):
+def marker_to_dict(marker, user_id):
 	return {
 		'id': marker.id,
 		'lon': float(marker.longitude),
@@ -19,7 +19,7 @@ def marker_to_dict(marker):
 		'name': marker.name,
 		'note': marker.note,
 		'reported_date': marker.reported_date.strftime('%Y-%m-%d'),
-		'owned': False,
+		'owned': marker.user_id == user_id,
 	}
 
 
@@ -54,7 +54,7 @@ def mark_location_post(request):
 	# Needed to get the ID
 	request.dbsession.flush()
 
-	return marker_to_dict(new_marker)
+	return marker_to_dict(new_marker, request.user_id)
 
 
 @view_config(route_name='remove_marker', xhr=True, renderer='json')
@@ -73,7 +73,7 @@ def list_locations(request):
 	markers = []
 
 	for m in request.dbsession.query(models.Marker):
-		markers.append(marker_to_dict(m))
+		markers.append(marker_to_dict(m, request.user_id))
 
 
 	return markers
