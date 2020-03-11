@@ -1,4 +1,6 @@
 import argparse
+import datetime
+import decimal
 import sys
 
 from pyramid.paster import bootstrap, setup_logging
@@ -12,7 +14,21 @@ def setup_models(dbsession):
     Add or update models / fixtures in the database.
 
     """
-    model = models.mymodel.MyModel(name='one', value=1)
+    model = models.marker.Marker(
+        latitude=decimal.Decimal('0.0'),
+        longitude=decimal.Decimal('0.0'),
+        name='Some location name',
+        note='Some additional note',
+        reported_date=datetime.date(2020, 3, 10),
+    )
+    dbsession.add(model)
+    model = models.marker.Marker(
+        latitude=decimal.Decimal('100.0'),
+        longitude=decimal.Decimal('0.0'),
+        name='Some location name',
+        note='Some additional note',
+        reported_date=datetime.date(2020, 3, 10),
+    )
     dbsession.add(model)
 
 

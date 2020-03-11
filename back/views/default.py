@@ -12,12 +12,7 @@ def get_iso_date():
 
 
 @view_config(route_name='home', renderer='../templates/index.jinja2')
-def my_view(request):
-    try:
-        query = request.dbsession.query(models.MyModel)
-        one = query.filter(models.MyModel.name == 'one').first()
-    except DBAPIError:
-        return Response(db_err_msg, content_type='text/plain', status=500)
+def home(request):
     return {'isotoday': get_iso_date()}
 
 
@@ -28,24 +23,16 @@ def mark_location(request):
 
 @view_config(route_name='list_locations', renderer='json')
 def list_locations(request):
-	return [
-		{'lon': 0.0, 'lat': 0.0, 'name': 'Some random location', 'note': 'I was there from 12:45 until 13:30.'},
-		{'lon': 5.0, 'lat': 5.0, 'name': 'Some random location', 'note': 'I was there from 12:45 until 13:30.'},
-		{'lon': -0.31, 'lat': 51.4, 'name': 'Some London location', 'note': 'Nothing more to say', 'datetime': '2020-03-20'},
-	]
+	markers = []
+
+	for m in request.dbsession.query(models.Marker):
+		markers.append({
+			'lon': float(m.longitude),
+			'lat': float(m.latitude),
+			'name': m.name,
+			'note': m.note,
+			'reported_date': m.reported_date.strftime('%Y-%m-%d'),
+		})
 
 
-db_err_msg = """\
-Pyramid is having a problem using your SQL database.  The problem
-might be caused by one of the following things:
-
-1.  You may need to initialize your database tables with `alembic`.
-    Check your README.txt for descriptions and try to run it.
-
-2.  Your database server may not be running.  Check that the
-    database server referred to by the "sqlalchemy.url" setting in
-    your "development.ini" file is running.
-
-After you fix the problem, please restart the Pyramid application to
-try it again.
-"""
+	return markers
