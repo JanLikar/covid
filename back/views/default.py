@@ -37,15 +37,14 @@ def home(request):
 
 @view_config(route_name='home', renderer='../templates/index.jinja2',request_method='POST')
 def my_view_handler(request):
-    try:
-        query = request.dbsession.query(models.MyModel)
-        one = query.filter(models.MyModel.name == 'one').first()
-    except DBAPIError:
-        return Response(db_err_msg, content_type='text/plain', status=500)
 
-    passphrase = get_passphrase()
+    passphrase = request.params['passphrase']
 
-    return {'isotoday': '2020-03-10',
+    import pdb; pdb.set_trace()
+
+
+
+    return {'isotoday': get_iso_date(),
             'passphrase': passphrase}
 
 @view_config(route_name='mark_location', renderer='../templates/mark_location.jinja2')
