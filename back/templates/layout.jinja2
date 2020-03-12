@@ -10,6 +10,11 @@
 
     <title>COVID-19 Tracker</title>
 
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.1.0/css/flag-icon.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
@@ -17,11 +22,9 @@
    integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
    crossorigin=""/>
 
-    <style>
-        #mapid { height: 500px; }
-    </style>
+
     <!-- Custom styles for this scaffold -->
-    <!--<link href="{{request.static_url('back:static/theme.css')}}" rel="stylesheet">-->
+    <link href="{{request.static_url('back:static/theme.css')}}" rel="stylesheet">
 
     <!-- HTML5 shiv and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -32,23 +35,100 @@
 
   <body>
     <!-- START language selector -->
-    <div class="float-right">
-      Language:&nbsp;
-      <select id="language" data-toggle="tooltip" title="Uses a cookie to store the selected language.">{{ _("use_my_location") }}>
-        {% for l in request.registry.settings.get('available_locales').split(' ') %}
-          {% if l == request.locale_name %}
-            <option value="{{ l }}" selected>{{ l }}</option>
-          {% else %}
-            <option value="{{ l }}">{{ l }}</option>
-          {% endif %}
-        {% endfor %}
-      </select>
-    </div>
-    <!-- END language selector -->
+    <div class="row" style="height:100%">
+      <div class="col-lg-3" style="box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);z-index: 1000;">
+        <div class="container">
 
-    {% block content %}
-        <p>No content</p>
-    {% endblock content %}
+          <nav class="navbar navbar-expand-lg navbar-light rounded">
+                <div class="collapse navbar-collapse">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item dropdown">
+                          {% for l in request.registry.settings.get('available_locales').split(' ') %}
+                            {% if l == request.locale_name %}
+                              <!-- <option value="{{ l }}" selected>{{ l }}</option> -->
+                              <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown09" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="flag-icon flag-icon-{%if l=='en'%}gb{%endif%}"> </span> {{ l }}</a>
+                            {% else %}
+                              <!-- <option value="{{ l }}">{{ l }}</option> -->
+                              <div class="dropdown-menu" aria-labelledby="dropdown09">
+                                <a class="dropdown-item" href="#{{l}}"><span class="flag-icon flag-icon-{{l}}"> </span>  {{ l }}</a>
+                            </div>
+                            {% endif %}
+                          {% endfor %}
+                        </li>
+                    </ul>
+
+                    <a href="javascript:" style="color: black;font-size:24px;" id="use-my-location" data-toggle="tooltip" title="{{ _('use_my_location_tooltip') }}"><i class="fa fa-location-arrow"></i></a>
+                </div>
+            </nav>
+
+
+        <h1>{{ _("title") }}</h1>
+
+        <h4>{{ _("call_to_action_title") }}</h4>
+        <p>{{ _("call_to_action_text") }}</p>
+        {% if not request.authenticated_userid %}
+          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#passphrase-popup">
+              {{ _("call_to_action_button") }}
+            </button>
+        {% else %}
+            <a href="{{ request.route_url('logout') }}" class="btn btn-secondary active" role="button">{{ _("close_session_button") }}</a>
+        {% endif %}
+
+{% if request.authenticated_userid %}
+
+        <form method="POST" id="add-location">
+          <div class="form-group row">
+            <label for="lat" class="col-sm-6 col-form-label">{{ _("marker_form_label_latitude") }}</label>
+            <div class="col-sm-6">
+              <input type="text" id="lat" class="form-control-plaintext readonly" name="lat" placeholder="{{ _('marker_form_label_click_on_the_map') }}" required />
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="lon" class="col-sm-6 col-form-label">{{ _("marker_form_label_longitude") }}</label>
+            <div class="col-sm-6">
+              <input type="text" id="lon" class="form-control-plaintext readonly" name="lon" placeholder="{{ _('marker_form_label_click_on_the_map') }}" required />
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="reported_date" class="col-sm-6 col-form-label">{{ _("marker_form_label_date") }}</label>
+            <div class="col-sm-6">
+              <input type="date" id="reported_date" name="reported_date" value="{{ isotoday }}" min="2020-01-01" max="{{ isotoday }}" required>
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col-sm-12">
+              <input type="text" id="name" class="form-control-plaintext border" name="name" placeholder="{{ _('marker_form_label_location_name') }}" required />
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col-sm-12">
+              <textarea id="note" class="form-control-plaintext border" name="note" placeholder="{{ _('marker_form_label_additional_information') }}"></textarea>
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col-sm-10">
+              <button class="btn btn-primary" type="submit">{{ _("marker_form_submit_button") }}</button>
+            </div>
+          </div>
+        </form>
+
+        {% else %}
+        <input type="date" id="map-filter-start" name="map-filter-start" value="2020-03-10" min="2020-03-10" max="{{ isotoday }}">
+  <input type="date" id="map-filter-end" name="map-filter-end" value="{{ isotoday }}" min="2020-03-10" max="{{ isotoday }}">
+        {% endif %}
+      </div>
+
+
+      </div>
+    <!-- END language selector -->
+      <div class="col-sm-9" style="padding: 0">
+
+        {% block content %}
+            <p>No content</p>
+        {% endblock content %}
+
+        </div>
+      </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>

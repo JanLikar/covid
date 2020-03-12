@@ -1,5 +1,12 @@
 @import url(//fonts.googleapis.com/css?family=Open+Sans:300,400,600,700);
-body {
+body, html, #mapid {
+  height: 100%;
+  width: 100%;
+}
+.nav-item a{
+   text-decoration: none !important;
+}
+/*body {
   font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: 300;
   color: #ffffff;
@@ -151,4 +158,4 @@ p {
   .starter-template .copyright {
     margin-top: 20px;
   }
-}
+}*/
