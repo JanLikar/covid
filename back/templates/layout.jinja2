@@ -31,6 +31,21 @@
   </head>
 
   <body>
+    <!-- START language selector -->
+    <div class="float-right">
+      Language:&nbsp;
+      <select id="language" data-toggle="tooltip" title="Uses a cookie to store the selected language.">{{ _("use_my_location") }}>
+        {% for l in request.registry.settings.get('available_locales').split(' ') %}
+          {% if l == request.locale_name %}
+            <option value="{{ l }}" selected>{{ l }}</option>
+          {% else %}
+            <option value="{{ l }}">{{ l }}</option>
+          {% endif %}
+        {% endfor %}
+      </select>
+    </div>
+    <!-- END language selector -->
+
     {% block content %}
         <p>No content</p>
     {% endblock content %}
@@ -123,6 +138,7 @@
   });
 
   </script>
+  <script type="text/javascript" src="{{request.static_url('back:static/main.js')}}"></script>
     {% block bottom_js %}
     {% endblock %}
   </body>
