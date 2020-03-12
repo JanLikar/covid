@@ -7,6 +7,7 @@ def main(global_config, **settings):
         config.include('.models')
         config.include('pyramid_jinja2')
         config.include('.routes')
+        config.include('.security')
 
         config.add_translation_dirs('back:locale/')
         config.set_locale_negotiator(lambda r: 'en')
