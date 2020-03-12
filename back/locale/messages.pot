@@ -42,3 +42,6 @@ msgstr ""
 
 msgid "marker_form_submit_button"
 msgstr ""
+
+msgid "close_session_button"
+msgstr ""
