@@ -80,6 +80,10 @@ def home_post(request):
     return {'isotoday': get_iso_date(),
             'gen_passphrase': get_passphrase()}
 
+@view_config(route_name='add_marker', renderer='../templates/add_marker.jinja2')
+def add_marker(request):
+    return {'isotoday': get_iso_date()}
+
 
 @view_config(route_name='add_marker', xhr=True, renderer='json', request_method='POST')
 def add_marker_post(request):
@@ -95,14 +99,14 @@ def add_marker_post(request):
 		name=name,
 		note=note,
 		reported_date=reported_date,
-		user_id=request.user_id,
+		user_id=request.authenticated_userid,
 	)
 
 	request.dbsession.add(new_marker)
 	# Needed to get the ID
 	request.dbsession.flush()
 
-	return marker_to_dict(new_marker, request.user_id)
+	return marker_to_dict(new_marker, request.authenticated_userid)
 
 
 @view_config(route_name='remove_marker', xhr=True, renderer='json')
@@ -110,7 +114,7 @@ def remove_marker(request):
 	marker_id = int(request.matchdict.get('marker_id'))
 	request.dbsession.query(models.Marker).filter_by(
 		id=marker_id,
-		user_id=request.user_id,
+		user_id=request.authenticated_userid,
 	).delete()
 
 	return {}
@@ -121,7 +125,7 @@ def list_markers(request):
 	markers = []
 
 	for m in request.dbsession.query(models.Marker):
-		markers.append(marker_to_dict(m, request.user_id))
+		markers.append(marker_to_dict(m, request.authenticated_userid))
 
 
 	return markers
