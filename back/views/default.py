@@ -10,8 +10,8 @@ from pyramid.security import remember
 from pyramid.httpexceptions import (
     HTTPForbidden,
     HTTPFound,
-    HTTPNotFound,
-    )
+)
+
 
 def get_iso_date():
     return datetime.datetime.utcnow().strftime('%Y-%m-%d')
