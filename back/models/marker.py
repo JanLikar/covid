@@ -18,12 +18,12 @@ class Marker(Base):
     id = Column(Integer, primary_key=True)
     longitude = Column(Numeric, nullable=False)
     latitude = Column(Numeric, nullable=False)
-    name = Column(Text(length=50), nullable=False)
-    note = Column(Text(length=500), default='', nullable=False)
+    name = Column(Text, nullable=False)
+    note = Column(Text, default='', nullable=False)
     reported_date = Column(Date, nullable=False)
     created = Column(DateTime(timezone=True),
                      default=func.now(), nullable=False)
     updated = Column(DateTime(timezone=True), default=func.now(),
                      onupdate=func.now(), nullable=False)
     user_id = Column(Integer, default=0, nullable=False)
-    deleted = Column(Boolean(name='deleted_ck'), unique=False, default=False)
+    deleted = Column(Boolean(name='deleted_ck'), default=False)

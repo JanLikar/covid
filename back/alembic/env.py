@@ -1,7 +1,7 @@
 """Pyramid bootstrap environment. """
 from alembic import context
 from pyramid.paster import get_appsettings, setup_logging
-from sqlalchemy import engine_from_config
+from sqlalchemy import (create_engine, engine_from_config)
 
 from back.models.meta import Base
 
@@ -11,6 +11,10 @@ setup_logging(config.config_file_name)
 
 settings = get_appsettings(config.config_file_name)
 target_metadata = Base.metadata
+
+
+def get_url():
+    return context.get_x_argument(as_dictionary=True).get('url')
 
 
 def run_migrations_offline():
@@ -25,7 +29,8 @@ def run_migrations_offline():
     script output.
 
     """
-    context.configure(url=settings['sqlalchemy.url'])
+    # context.configure(url=settings['sqlalchemy.url'])
+    context.configure(url=get_url())
     with context.begin_transaction():
         context.run_migrations()
 
@@ -37,6 +42,7 @@ def run_migrations_online():
     and associate a connection with the context.
 
     """
+    settings['sqlalchemy.url'] = get_url()
     engine = engine_from_config(settings, prefix='sqlalchemy.')
 
     connection = engine.connect()

@@ -24,11 +24,11 @@ Getting Started
 
     - Generate your first revision.
 
-        venv/bin/alembic -c development.ini revision --autogenerate -m "init"
+        venv/bin/alembic -c development.ini -x url="sqlite:///back.sqlite" revision --autogenerate -m "init"
 
     - Upgrade to that revision.
 
-        venv/bin/alembic -c development.ini upgrade head
+        venv/bin/alembic -c development.ini -x url="sqlite:///back.sqlite" upgrade head
 
 - Load default data into the database using a script.
 
