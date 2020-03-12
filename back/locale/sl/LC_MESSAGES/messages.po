@@ -6,43 +6,43 @@ msgid "title"
 msgstr "COVID-19 tracker"
 
 msgid "use_my_location"
-msgstr "Use my location"
+msgstr "Uporabi mojo lokacijo"
 
 msgid "use_my_location_tooltip"
-msgstr "Uses your browser's local storage"
+msgstr "Lokacija se bo shranila v vaš brskalnik."
 
 # index.jinja2
 msgid "call_to_action_title"
-msgstr "Infected with COVID-19?"
+msgstr "Ste okuženi s Covid-19?"
 
 msgid "call_to_action_text"
 msgstr ""
-"Mark your movement on the map to notify people that were in contact with you."
+"Na zemljevidu označite lokacije, kjer ste se v zadnjih dneh nahajali, in tako opozorite ljudi, ki so bili tudi tam."
 
 msgid "call_to_action_button"
-msgstr "Mark your movement on the map"
+msgstr "Označevanje lokacij"
 
 # add_marker.jinja2
 msgid "marker_form_label_click_on_the_map"
-msgstr "click on the map"
+msgstr "izberite lokacijo na zemljevidu"
 
 msgid "marker_form_label_latitude"
-msgstr "Latitude"
+msgstr "Lat"
 
 msgid "marker_form_label_longitude"
-msgstr "Longitude"
+msgstr "Lon"
 
 msgid "marker_form_label_date"
-msgstr "Date"
+msgstr "Datum"
 
 msgid "marker_form_label_location_name"
-msgstr "Name of the location"
+msgstr "Ime lokacije"
 
 msgid "marker_form_label_additional_information"
-msgstr "Additional information (optional)"
+msgstr "Opombe (neobvezno)"
 
 msgid "marker_form_submit_button"
-msgstr "Save"
+msgstr "Shrani"
 
 msgid "close_session_button"
-msgstr "Close session"
+msgstr "Zaključi sejo"

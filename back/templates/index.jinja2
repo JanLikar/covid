@@ -8,12 +8,14 @@
     <div class="col-sm">
       <h4>{{ _("call_to_action_title") }}</h4>
       <p>{{ _("call_to_action_text") }}</p>
-      <!-- <a class="btn btn-primary" href="{{ request.route_url('add_marker') }}" role="button">{{ _("call_to_action_button") }}</a> -->
       {% if not request.authenticated_userid %}
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#passphrase-popup">
             {{ _("call_to_action_button") }}
           </button>
       {% else %}
+          <a href="{{ request.route_url('add_marker') }}" class="btn btn-primary">
+            {{ _("call_to_action_button") }}
+          </a>
           <a href="{{ request.route_url('logout') }}" class="btn btn-secondary active" role="button">{{ _("close_session_button") }}</a>
       {% endif %}
     </div>
