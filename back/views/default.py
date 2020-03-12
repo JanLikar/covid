@@ -45,6 +45,7 @@ def home_post(request):
     passphrase = passphrase.strip()
 
     gen_passphrase = request.params['gen_passphrase']
+    email = request.params['email']
 
     # Check if too short
     if len(passphrase) <= 16:
@@ -55,7 +56,7 @@ def home_post(request):
     if gen_passphrase == passphrase:
         print("pass is the same as generated pass - adding user")
         # Check if the generated pass was entered
-        new_user = models.User(passphrase=passphrase)
+        new_user = models.User(passphrase=passphrase, email=email)
         request.dbsession.add(new_user)
         request.dbsession.flush()
 
@@ -70,6 +71,10 @@ def home_post(request):
 
         if user is not None:
             print("found")
+            # Check if user has email and if new email was provided
+            if email:
+                user.email = email
+                request.dbsession.flush()
             # Found previous user
             headers = remember(request, user.id)
             return HTTPFound(location=request.route_url('add_marker'),

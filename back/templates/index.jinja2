@@ -39,14 +39,17 @@
           </div>
           <form action="/" method="post">
             <div class="modal-body">
-              <p class="lead">In order to keep anonymity of people reporting on the Covid virus, we use Diceware passphrase, which provides "strong, yet easy to remember passphrase for use with encryption and security programs."</p>
-              <p>The reason why even such a login exists is to enable people to return back to the application and change the status of markers, once more information is available. A typical case would be when a person would decide to self-isolate due to being in potential contact with an infected person, and would place markers to indicate a <em>potential infection</em>, while waiting for results of the blood testing for the virus. If the test later confirm the infection, then the login allows the person to change the status of previously placed markers to <em>confirmed infection</em>, or delete them if the results show the person is healthy.</p>
-              <p class="lead"><b>Want to start a new session?</b></p>
-              <p >Use the Diceware passphrase below, but <b>first make sure to copy the passphrase and paste it into your password manager, or store it somewhere safe</b> so you can reuse it in the future!</p>
+              <p>Enter your passphrase to add or update your markers.</p>
+              <p>
+              <input type="text" placeholder="Enter passphrase" class="form-control" id="passphrase" name="passphrase" required>
+              <input type="email" placeholder="Your e-mail address (optional)" class="form-control" id="email" name="email">
+               <input type="text" hidden class="form-control" id="gen_passphrase" name="gen_passphrase" value="{{ gen_passphrase }}">
+              </p>
+              <p><b>Want to start a new session?</b></p>
+              <p >Use the passphrase below, but <b>first make sure to copy the passphrase and paste it into your password manager, or store it somewhere safe</b> so you can reuse it in the future!</p>
 
               <p>New passphrase: <code>{{ gen_passphrase }}</code></p>
-              <input type="text" placeholder="Enter passphrase" class="form-control" id="passphrase" name="passphrase" required>
-               <input type="text" hidden class="form-control" id="gen_passphrase" name="gen_passphrase" value="{{ gen_passphrase }}">
+
 
             </div>
             <div class="modal-footer">
