@@ -30,6 +30,10 @@ def setup_models(dbsession):
         reported_date=datetime.date(2020, 3, 10),
     )
     dbsession.add(model)
+    user = models.user.User(
+        passphrase='secret',
+    )
+    dbsession.add(user)
 
 
 def parse_args(argv):
