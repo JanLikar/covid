@@ -38,7 +38,8 @@ def home(request):
     return {'isotoday': get_iso_date(),
             'gen_passphrase': get_passphrase()}
 
-@view_config(route_name='home', renderer='../templates/index.jinja2',request_method='POST')
+
+@view_config(route_name='home', renderer='../templates/index.jinja2', request_method='POST')
 def home_post(request):
 
     passphrase = request.params['passphrase']
@@ -62,7 +63,7 @@ def home_post(request):
 
         headers = remember(request, new_user.id)
         return HTTPFound(location=request.route_url('add_marker'),
-                             headers=headers)
+                         headers=headers)
     else:
         print("pass is different than generated - search user")
         # Try to existing find a user with passphrase
@@ -85,6 +86,7 @@ def home_post(request):
     return {'isotoday': get_iso_date(),
             'gen_passphrase': get_passphrase()}
 
+
 @view_config(route_name='add_marker', renderer='../templates/add_marker.jinja2')
 def add_marker(request):
     if not request.authenticated_userid:
@@ -98,7 +100,6 @@ def add_marker_post(request):
 
     if not request.authenticated_userid:
         raise HTTPForbidden()
-
 
     latitude = request.params.get('lat')
     longitude = request.params.get('lon')
@@ -125,10 +126,13 @@ def add_marker_post(request):
 @view_config(route_name='remove_marker', xhr=True, renderer='json')
 def remove_marker(request):
     marker_id = int(request.matchdict.get('marker_id'))
-    request.dbsession.query(models.Marker).filter_by(
+    markers_to_delete = request.dbsession.query(models.Marker).filter_by(
         id=marker_id,
-        user_id=request.authenticated_userid,
-    ).delete()
+        user_id=request.user_id,
+    )
+
+    markers_to_delete.deleted = True
+    request.dbsession.commit()
 
     return {}
 
@@ -147,8 +151,8 @@ def list_markers(request):
     for m in db_markers:
         markers.append(marker_to_dict(m, request.authenticated_userid))
 
-
     return markers
+
 
 @view_config(route_name='logout')
 def logout(request):
@@ -156,4 +160,3 @@ def logout(request):
     url = request.route_url('home')
     print("logged out")
     return HTTPFound(location=url, headers=headers)
-

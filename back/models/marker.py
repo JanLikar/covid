@@ -7,6 +7,7 @@ from sqlalchemy import (
     Integer,
     Numeric,
     Text,
+    Boolean
 )
 
 from .meta import Base
@@ -20,6 +21,9 @@ class Marker(Base):
     name = Column(Text(length=50), nullable=False)
     note = Column(Text(length=500), default='', nullable=False)
     reported_date = Column(Date, nullable=False)
-    created = Column(DateTime(timezone=True), default=func.now(), nullable=False)
-    updated = Column(DateTime(timezone=True), default=func.now(), onupdate=func.now(), nullable=False)
+    created = Column(DateTime(timezone=True),
+                     default=func.now(), nullable=False)
+    updated = Column(DateTime(timezone=True), default=func.now(),
+                     onupdate=func.now(), nullable=False)
     user_id = Column(Integer, default=0, nullable=False)
+    deleted = Column(Boolean, unique=False, default=False)
