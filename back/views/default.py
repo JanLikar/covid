@@ -5,7 +5,13 @@ from pyramid.response import Response
 from sqlalchemy.exc import DBAPIError
 from ..utils import get_passphrase
 from .. import models
-
+from pyramid.security import forget
+from pyramid.security import remember
+from pyramid.httpexceptions import (
+    HTTPForbidden,
+    HTTPFound,
+    HTTPNotFound,
+    )
 
 def get_iso_date():
     return datetime.datetime.utcnow().strftime('%Y-%m-%d')
@@ -29,27 +35,50 @@ def marker_to_dict(marker, user_id):
 
 @view_config(route_name='home', renderer='../templates/index.jinja2')
 def home(request):
-
-    passphrase = get_passphrase()
-
     return {'isotoday': get_iso_date(),
-            'passphrase': passphrase}
+            'gen_passphrase': get_passphrase()}
 
 @view_config(route_name='home', renderer='../templates/index.jinja2',request_method='POST')
-def my_view_handler(request):
+def home_post(request):
 
     passphrase = request.params['passphrase']
+    passphrase = passphrase.strip()
 
-    import pdb; pdb.set_trace()
+    gen_passphrase = request.params['gen_passphrase']
 
+    # Check if too short
+    if len(passphrase) <= 16:
+        print("pass too short")
+        return {'isotoday': get_iso_date(),
+                'gen_passphrase': get_passphrase()}
 
+    if gen_passphrase == passphrase:
+        print("pass is the same as generated pass - adding user")
+        # Check if the generated pass was entered
+        new_user = models.User(passphrase=passphrase)
+        request.dbsession.add(new_user)
+        request.dbsession.flush()
+
+        headers = remember(request, new_user.id)
+        return HTTPFound(location=request.route_url('add_marker'),
+                             headers=headers)
+    else:
+        print("pass is different than generated - search user")
+        # Try to existing find a user with passphrase
+        user = request.dbsession.query(models.User).filter_by(
+            passphrase=passphrase).first()
+
+        if user is not None:
+            print("found")
+            # Found previous user
+            headers = remember(request, user.id)
+            return HTTPFound(location=request.route_url('add_marker'),
+                             headers=headers)
+        else:
+            print("not found")
 
     return {'isotoday': get_iso_date(),
-            'passphrase': passphrase}
-
-@view_config(route_name='mark_location', renderer='../templates/mark_location.jinja2')
-def mark_location(request):
-	return {'isotoday': get_iso_date()}
+            'gen_passphrase': get_passphrase()}
 
 
 @view_config(route_name='add_marker', xhr=True, renderer='json', request_method='POST')
@@ -96,3 +125,11 @@ def list_markers(request):
 
 
 	return markers
+
+@view_config(route_name='logout')
+def logout(request):
+    headers = forget(request)
+    url = request.route_url('home')
+    print("logged out")
+    return HTTPFound(location=url, headers=headers)
+
