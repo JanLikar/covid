@@ -7,9 +7,3 @@ function setCookie(name, value, days) {
 
     document.cookie = name + "=" + value + "; expires="  + date.toUTCString() + "; path=/";
 }
-
-
-$('#language').change(function () {
-	setCookie("_LOCALE_", $(this).val(), 14);
-	location.reload();
-});
