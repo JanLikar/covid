@@ -35,7 +35,6 @@ def marker_to_dict(marker, user_id):
 
 @view_config(route_name='home', renderer='../templates/index.jinja2')
 def home(request):
-    raise ValueError()
     return {'isotoday': get_iso_date(),
             'gen_passphrase': get_passphrase()}
 
