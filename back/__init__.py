@@ -11,7 +11,7 @@ def main(global_config, **settings):
         config.include('.models')
         config.include('.i18n')
         config.include('pyramid_jinja2')
-        config.include('pyramid_sentry')
+        config.include('pyramid_raven')
         config.include('.routes')
         config.include('.security')
 

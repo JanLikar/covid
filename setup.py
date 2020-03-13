@@ -17,6 +17,7 @@ requires = [
     'waitress',
     'alembic',
     'diceware',
+    'pyramid_raven',
     'pyramid_retry',
     'pyramid_tm',
     'psycopg2',
