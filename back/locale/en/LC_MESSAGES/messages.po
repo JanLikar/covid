@@ -46,3 +46,31 @@ msgstr "Save"
 
 msgid "close_session_button"
 msgstr "Close session"
+
+# login modal
+msgid "login_modal_title"
+msgstr "Anonymised login"
+
+msgid "login_instruction"
+msgstr "Enter your passphrase to add or update your markers."
+
+msgid "login_new_session_title"
+msgstr "Want to start a new session?"
+
+msgid "login_instruction2"
+msgstr "Use the passphrase below, but <b>first make sure to copy the passphrase and paste it into your password manager, or store it somewhere safe</b> so you can reuse it in the future!"
+
+msgid "login_passphrase_placeholder"
+msgstr "Enter passphrase"
+
+msgid "login_email_placeholder"
+msgstr "Your e-mail address (optional)"
+
+msgid "login_new_passphrase_label"
+msgstr "New passphrase:"
+
+msgid "login_button_submit"
+msgstr "Login"
+
+msgid "login_button_close"
+msgstr "Close"
