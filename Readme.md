@@ -9,4 +9,8 @@ A map that allows people with COVID-19 to mark their past locations to warn othe
 ## Contributing
 Pull requests are kindly accepted. Please assign yourself to a ticket, before starting.
 
+Your branch should be based on the staging branch. After merging to staging, the branch gets automatically deployed to [https://covid-staging.herokuapp.com/](https://covid-staging.herokuapp.com/).
+
+When testing is completed, we pull the changes into master, which gets deployed to production.
+
 See README.txt for environment setup.
