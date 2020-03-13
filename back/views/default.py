@@ -160,6 +160,11 @@ def logout(request):
     return HTTPFound(location=url, headers=headers)
 
 
+@view_config(route_name='acme')
+def acme(request):
+    return Response('qsNO-zNzXSX4yMncMJARDqWEu5AThIYsy5eGseyxQKA.bxO0l_kg40uGCKYTyVY79r5ZUf-SN87ty2ERrJcxsfo')
+
+
 @view_config(context=Exception)
 def system_error_view(context, request):
     request.raven.captureException()
