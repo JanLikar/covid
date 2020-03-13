@@ -4,6 +4,7 @@ A map that allows people with COVID-19 to mark their past locations to warn othe
 
 ![A screenshot of the app](screenshot.png)
 
+[Demo / staging](https://covid-staging.herokuapp.com/)
 
 ## Contributing
 Pull requests are kindly accepted. Please assign yourself to a ticket, before starting.
