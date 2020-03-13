@@ -3,7 +3,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 
 msgid "title"
-msgstr "COVID-19 tracker"
+msgstr "COVID Report"
 
 msgid "use_my_location"
 msgstr "Use my location"
