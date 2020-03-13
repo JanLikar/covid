@@ -26,4 +26,4 @@ class Marker(Base):
     updated = Column(DateTime(timezone=True), default=func.now(),
                      onupdate=func.now(), nullable=False)
     user_id = Column(Integer, default=0, nullable=False)
-    deleted = Column(Boolean, unique=False, default=False)
+    deleted = Column(Boolean(name='deleted_ck'), unique=False, default=False)
