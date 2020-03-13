@@ -139,23 +139,17 @@ def remove_marker(request):
 
 @view_config(route_name='list_markers', renderer='json')
 def list_markers(request):
-    min_date = request.params["min_date"]
+    min_date = request.params.get("min_date")
+    max_date = request.params.get("max_date")
 
-    max_date = request.params["max_date"]
+    db_markers = request.dbsession.query(models.Marker)
 
-    markers = []
+    if min_date is not None:
+        db_markers = db_markers.filter(reported_date >= min_date)
+    if max_date is not None:
+        db_markers = db_markers.filter(reported_date <= max_date)
 
-    if request.authenticated_userid:
-        db_markers = request.dbsession.query(models.Marker).filter_by(
-            user_id=request.authenticated_userid).filter(reported_date >= min_date, reported_date <= max_date)
-    else:
-        db_markers = request.dbsession.query(models.Marker).filter(
-            reported_date >= min_date, reported_date <= max_date)
-
-    for m in db_markers:
-        markers.append(marker_to_dict(m, request.authenticated_userid))
-
-    return markers
+    return [marker_to_dict(m, request.authenticated_userid) for m in db_markers]
 
 
 @view_config(route_name='logout')
