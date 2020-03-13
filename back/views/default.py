@@ -165,6 +165,7 @@ def remove_marker(request):
 def list_markers(request):
     min_date = request.params.get("min_date")
     max_date = request.params.get("max_date")
+    only_owned = request.params.get("only_owned", False)
 
     db_markers = request.dbsession.query(models.Marker)
 
@@ -172,6 +173,8 @@ def list_markers(request):
         db_markers = db_markers.filter(models.Marker.reported_date >= min_date)
     if max_date is not None:
         db_markers = db_markers.filter(models.Marker.reported_date <= max_date)
+    if only_owned:
+        db_markers = db_markers.filter_by(user_id=request.authenticated_userid)
 
     return [marker_to_dict(m, request.authenticated_userid) for m in db_markers]
 
@@ -192,3 +195,5 @@ def acme(request):
 @view_config(context=Exception)
 def system_error_view(context, request):
     request.raven.captureException()
+
+    return Response('There was an error. We are working on it.', 500)
