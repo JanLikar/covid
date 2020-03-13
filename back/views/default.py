@@ -159,3 +159,8 @@ def logout(request):
     url = request.route_url('home')
     print("logged out")
     return HTTPFound(location=url, headers=headers)
+
+
+@view_config(context=Exception)
+def system_error_view(context, request):
+    request.raven.captureException()
