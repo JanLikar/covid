@@ -143,7 +143,7 @@
     var markers = {};
 
     // London
-    var default_location = [51.505, -0.09]
+    var default_location = [$('#mapid').data('default-lat'), $('#mapid').data('default-lon')];
 
     var initial_lat = window.localStorage.getItem('lat') || default_location[0];
     var initial_lon = window.localStorage.getItem('lon') || default_location[1];

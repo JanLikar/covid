@@ -33,14 +33,28 @@ def marker_to_dict(marker, user_id):
     }
 
 
+def locale_to_coords(locale):
+    """Return a tuple of coordinates, coresponding to the default map location for the given locale."""
+    return {
+        'sl': (46.0, 14.5),
+        'en': (52.0, -1.7),
+    }[locale]
+
+
 @view_config(route_name='home', renderer='../templates/index.jinja2')
 def home(request):
-    return {'isotoday': get_iso_date(),
-            'gen_passphrase': get_passphrase()}
+    lon, lat = locale_to_coords(request.locale_name)
+    return {
+        'isotoday': get_iso_date(),
+        'gen_passphrase': get_passphrase(),
+        'default_lat': lon,
+        'default_lon': lat,
+    }
 
 
 @view_config(route_name='home', renderer='../templates/index.jinja2', request_method='POST')
 def home_post(request):
+    lon, lat = locale_to_coords(request.locale_name)
 
     passphrase = request.params['passphrase']
     passphrase = passphrase.strip()
@@ -83,16 +97,26 @@ def home_post(request):
         else:
             print("not found")
 
-    return {'isotoday': get_iso_date(),
-            'gen_passphrase': get_passphrase()}
+    return {
+        'isotoday': get_iso_date(),
+        'gen_passphrase': get_passphrase(),
+        'default_lat': lon,
+        'default_lon': lat,
+    }
 
 
 @view_config(route_name='add_marker', renderer='../templates/add_marker.jinja2')
 def add_marker(request):
+    lon, lat = locale_to_coords(request.locale_name)
+
     if not request.authenticated_userid:
         raise HTTPForbidden()
 
-    return {'isotoday': get_iso_date()}
+    return {
+        'isotoday': get_iso_date(),
+        'default_lat': lon,
+        'default_lon': lat,
+    }
 
 
 @view_config(route_name='add_marker', xhr=True, renderer='json', request_method='POST')
