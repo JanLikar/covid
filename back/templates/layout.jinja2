@@ -217,13 +217,10 @@
       });
   });
 
-  </script>
-  <script type="text/javascript">
     function setLanguage(value) {
-    setCookie("_LOCALE_", value, 14);
-    location.reload();
-  };
-
+        setCookie("_LOCALE_", value, 14);
+        location.reload();
+    };
 </script>
   <script type="text/javascript" src="{{request.static_url('back:static/main.js')}}"></script>
     {% block bottom_js %}

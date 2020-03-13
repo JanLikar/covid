@@ -46,3 +46,31 @@ msgstr "Shrani"
 
 msgid "close_session_button"
 msgstr "Zaključi sejo"
+
+# login modal
+msgid "login_modal_title"
+msgstr "Anonimna prijava"
+
+msgid "login_instruction"
+msgstr "Vnesite svoje geslo za dostop do obrazca za označevanje lokacij."
+
+msgid "login_new_session_title"
+msgstr "Nova seja"
+
+msgid "login_instruction2"
+msgstr "Ob prvi prijavi, uporabite geslo, ki je izpisano spodaj. Geslo si shranite, da boste lahko pozneje urejali svoje podatke."
+
+msgid "login_passphrase_placeholder"
+msgstr "Geslo"
+
+msgid "login_email_placeholder"
+msgstr "Email naslov (neobvezno)"
+
+msgid "login_new_passphrase_label"
+msgstr "Novo geslo:"
+
+msgid "login_button_submit"
+msgstr "Prijava"
+
+msgid "login_button_close"
+msgstr "Zapri"

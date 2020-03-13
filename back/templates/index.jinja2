@@ -33,29 +33,29 @@
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">Anonymised login</h5>
+            <h5 class="modal-title">{{ _("login_modal_title") }}</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <form action="/" method="post">
             <div class="modal-body">
-              <p>Enter your passphrase to add or update your markers.</p>
+              <p>{{ _("login_instruction") }}</p>
               <p>
-              <input type="text" placeholder="Enter passphrase" class="form-control" id="passphrase" name="passphrase" required>
-              <input type="email" placeholder="Your e-mail address (optional)" class="form-control" id="email" name="email">
+              <input type="text" placeholder="{{ _('login_passphrase_placeholder') }}" class="form-control" id="passphrase" name="passphrase" required>
+              <input type="email" placeholder="{{ _('login_email_placeholder') }}" class="form-control" id="email" name="email">
                <input type="text" hidden class="form-control" id="gen_passphrase" name="gen_passphrase" value="{{ gen_passphrase }}">
               </p>
-              <p><b>Want to start a new session?</b></p>
-              <p >Use the passphrase below, but <b>first make sure to copy the passphrase and paste it into your password manager, or store it somewhere safe</b> so you can reuse it in the future!</p>
+              <p><b>{{ _("login_new_session_title") }}</b></p>
+              <p>{{ _("login_instruction2") }}</p>
 
-              <p>New passphrase: <code>{{ gen_passphrase }}</code></p>
+              <p>{{ _("login_new_passphrase_label") }}<br/><code>{{ gen_passphrase }}</code></p>
 
 
             </div>
             <div class="modal-footer">
-              <button type="submit" class="btn btn-primary" submit>Login</button>
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary" submit>{{ _('login_button_submit') }}</button>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ _('login_button_close') }}</button>
             </div>
           </form>
         </div>

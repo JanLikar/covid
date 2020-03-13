@@ -169,9 +169,9 @@ def list_markers(request):
     db_markers = request.dbsession.query(models.Marker)
 
     if min_date is not None:
-        db_markers = db_markers.filter(reported_date >= min_date)
+        db_markers = db_markers.filter(models.Marker.reported_date >= min_date)
     if max_date is not None:
-        db_markers = db_markers.filter(reported_date <= max_date)
+        db_markers = db_markers.filter(models.Marker.reported_date <= max_date)
 
     return [marker_to_dict(m, request.authenticated_userid) for m in db_markers]
 
