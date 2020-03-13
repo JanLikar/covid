@@ -1,6 +1,12 @@
 {% extends "layout.jinja2" %}
 {% block content %}
 
+
+
+
+
+
+<!--
 <div class="container">
   <h1>{{ _("title") }}</h1>
 
@@ -22,12 +28,12 @@
     <div class="col-sm">
     </div>
   </div>
-</div>
+</div> -->
 
-  <a href="javascript:;" id="use-my-location" data-toggle="tooltip" title="{{ _('use_my_location_tooltip') }}">{{ _("use_my_location") }}</a>
+
   <div id="mapid"></div>
-  <input type="date" id="map-filter-start" name="map-filter-start" value="2020-03-10" min="2020-03-10" max="{{ isotoday }}">
-  <input type="date" id="map-filter-end" name="map-filter-end" value="{{ isotoday }}" min="2020-03-10" max="{{ isotoday }}">
+
+
 
     <!-- Passphrase Popup start -->
     <div class="modal fade" id="passphrase-popup" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
