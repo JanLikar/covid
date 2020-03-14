@@ -161,13 +161,13 @@ def add_marker_post(request):
 @view_config(route_name='remove_marker', xhr=True, renderer='json')
 def remove_marker(request):
     marker_id = int(request.matchdict.get('marker_id'))
-    markers_to_delete = request.dbsession.query(models.Marker).filter_by(
+    marker = request.dbsession.query(models.Marker).filter_by(
         id=marker_id,
-        user_id=request.user_id,
-    )
+        user_id=request.authenticated_userid,
+    ).first()
 
-    markers_to_delete.deleted = True
-    request.dbsession.commit()
+    if marker is not None:
+        marker.deleted = True
 
     return {}
 
@@ -178,7 +178,7 @@ def list_markers(request):
     max_date = request.params.get("max_date")
     only_owned = request.params.get("only_owned", False)
 
-    db_markers = request.dbsession.query(models.Marker)
+    db_markers = request.dbsession.query(models.Marker).filter_by(deleted=False)
 
     if min_date is not None:
         db_markers = db_markers.filter(models.Marker.reported_date >= min_date)
