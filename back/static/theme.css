@@ -6,6 +6,9 @@ body, html, #mapid {
 .nav-item a{
    text-decoration: none !important;
 }
+.leaflet-popup-content{
+  min-width: 200px;
+}
 /*
 @import url(//fonts.googleapis.com/css?family=Open+Sans:300,400,600,700);
 body {

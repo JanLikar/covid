@@ -39,7 +39,7 @@ msgid "marker_form_label_location_name"
 msgstr "Name of the location"
 
 msgid "marker_form_label_additional_information"
-msgstr "Additional information (optional)"
+msgstr "Detailed information about your activities within this location"
 
 msgid "marker_form_submit_button"
 msgstr "Save"
@@ -89,3 +89,24 @@ msgstr "Add comment"
 
 msgid "comments_title"
 msgstr "Comments"
+
+msgid "add_comments_title"
+msgstr "Add a comment"
+
+msgid "comment_form_label_status"
+msgstr "Infection status"
+
+msgid "comment_form_label_status_suspicious"
+msgstr "Suspicious"
+
+msgid "comment_form_label_status_infected"
+msgstr "Confirmed infection"
+
+msgid "comment_form_label_status_healthy"
+msgstr "Confirmed healthy"
+
+msgid "comment_form_label_status_disinfected"
+msgstr "Area disinfected"
+
+msgid "comment_form_label_status_change"
+msgstr "Change status"

@@ -30,7 +30,7 @@ def marker_to_dict(marker, user_id):
         'note': marker.note,
         'reported_date': marker.reported_date.strftime('%Y-%m-%d'),
         'owned': marker.user_id == user_id,
-        # 'comments': db_comments
+        'status': marker.status
     }
 
 
@@ -40,6 +40,7 @@ def comment_to_dict(comment):
         'name': comment.name,
         'note': comment.email,
         'comment': comment.comment,
+        'status': comment.status,
         'commented_date': comment.created.strftime('%Y-%m-%d'),
     }
 
@@ -140,6 +141,7 @@ def add_marker_post(request):
     longitude = request.params.get('lon')
     name = request.params.get('name')
     note = request.params.get('note')
+    status = request.params.get('status')
     reported_date = parse_iso_date(request.params.get('reported_date'))
 
     new_marker = models.Marker(
@@ -149,6 +151,7 @@ def add_marker_post(request):
         note=note,
         reported_date=reported_date,
         user_id=request.authenticated_userid,
+        status=status
     )
 
     request.dbsession.add(new_marker)
@@ -192,8 +195,21 @@ def list_markers(request):
         mtd = marker_to_dict(m, request.authenticated_userid)
 
         # Find comments
-        db_comments = request.dbsession.query(models.Comment).filter_by(marker_id=mtd['id']).all()
+        db_comments = request.dbsession.query(models.Comment).filter_by(marker_id=mtd['id'])
+
+        if min_date is not None:
+            db_comments = db_comments.filter(models.Comment.created >= min_date)
+        if max_date is not None:
+            db_comments = db_comments.filter(models.Comment.created <= max_date)
+        db_comments = db_comments.order_by(models.Comment.created)
+
         mtd['comments'] = [comment_to_dict(d) for d in db_comments]
+
+        comments_status = [d['status'] for d in mtd['comments']]
+
+        if len(comments_status) > 0:
+            mtd['status'] = comments_status[-1]
+
         markers.append(mtd)
 
     return markers

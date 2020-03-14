@@ -39,7 +39,7 @@ msgid "marker_form_label_location_name"
 msgstr "Ime lokacije"
 
 msgid "marker_form_label_additional_information"
-msgstr "Opombe (neobvezno)"
+msgstr "Podroben opis vape interakcije na izbrani lokaciji"
 
 msgid "marker_form_submit_button"
 msgstr "Shrani"
@@ -90,3 +90,23 @@ msgstr "Dodaj komentar"
 msgid "comments_title"
 msgstr "Komentarji"
 
+msgid "add_comments_title"
+msgstr "Dodaj komentar"
+
+msgid "comment_form_label_status"
+msgstr "Stanje okužbe"
+
+msgid "comment_form_label_status_suspicious"
+msgstr "Sum na okužbo"
+
+msgid "comment_form_label_status_infected"
+msgstr "Potrjena okužba"
+
+msgid "comment_form_label_status_healthy"
+msgstr "Brez okužbe"
+
+msgid "comment_form_label_status_disinfected"
+msgstr "Območje razkuženo"
+
+msgid "comment_form_label_status_change"
+msgstr "Spremeni stanje okužbe"

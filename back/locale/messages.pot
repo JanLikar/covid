@@ -58,6 +58,28 @@ msgstr ""
 msgid "comment_form_submit_button"
 msgstr ""
 
+msgid "add_comments_title"
+msgstr ""
+
 msgid "comments_title"
 msgstr ""
+
+msgid "comment_form_label_status"
+msgstr ""
+
+msgid "comment_form_label_status_suspicious"
+msgstr ""
+
+msgid "comment_form_label_status_infected"
+msgstr ""
+
+msgid "comment_form_label_status_healthy"
+msgstr ""
+
+msgid "comment_form_label_status_disinfected"
+msgstr ""
+
+msgid "comment_form_label_status_change"
+msgstr ""
+
 
