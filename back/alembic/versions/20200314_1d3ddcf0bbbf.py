@@ -23,6 +23,7 @@ def upgrade():
     sa.Column('comment', sa.Text(), nullable=False),
     sa.Column('commented_date', sa.Date(), nullable=False),
     sa.Column('marker_id', sa.Integer(), nullable=False),
+    sa.Column('user_id', sa.Integer()),
     sa.PrimaryKeyConstraint('id', name=op.f('pk_comments'))
     )
 

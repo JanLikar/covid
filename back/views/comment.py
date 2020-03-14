@@ -19,6 +19,7 @@ def add_comment_post(request):
     email = request.params.get('email')
     comment = request.params.get('comment')
     marker_id = request.params.get('marker_id')
+    user_id = request.params.get('user_id')
     commented_date = datetime.datetime.today()
 
     new_comment = models.Comment(
@@ -26,6 +27,7 @@ def add_comment_post(request):
         email = email,
         comment = comment,
         marker_id = marker_id,
+        user_id = request.authenticated_userid,
         commented_date = commented_date,
     )
 

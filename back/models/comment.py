@@ -17,3 +17,4 @@ class Comment(Base):
     comment = Column(Text(), nullable=False)
     commented_date = Column(Date, nullable=False)
     marker_id = Column(Integer, nullable=False)
+    user_id = Column(Integer)
