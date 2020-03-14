@@ -121,7 +121,7 @@ def add_marker(request):
     lon, lat = locale_to_coords(request.locale_name)
 
     if not request.authenticated_userid:
-        raise HTTPForbidden()
+        raise HTTPFound(request.route_path('home'))
 
     return {
         'isotoday': get_iso_date(),
@@ -134,7 +134,7 @@ def add_marker(request):
 def add_marker_post(request):
 
     if not request.authenticated_userid:
-        raise HTTPForbidden()
+        raise HTTPFound(request.route_path('home'))
 
     latitude = request.params.get('lat')
     longitude = request.params.get('lon')
