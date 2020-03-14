@@ -22,13 +22,16 @@ Getting Started
 
 - Initialize and upgrade the database using Alembic.
 
-    - Generate your first revision.
+    - Upgrade alembic revision.
+
+        venv/bin/alembic -c development.ini -x url="sqlite:///back.sqlite" upgrade head
+
+    - If you need to generate your first revision.
 
         venv/bin/alembic -c development.ini -x url="sqlite:///back.sqlite" revision --autogenerate -m "init"
 
-    - Upgrade to that revision.
 
-        venv/bin/alembic -c development.ini -x url="sqlite:///back.sqlite" upgrade head
+    - Adding new revision, just omit the --autogenerate
 
 - Load default data into the database using a script.
 
@@ -41,3 +44,16 @@ Getting Started
 - Run your project.
 
     venv/bin/pserve development.ini
+
+
+Locale
+------
+
+- Adding new entries to translation:
+
+    cd back/locale
+    vim messages.pot # add new entry
+
+    msgmerge --update en/LC_MESSAGES/messages.po messages.pot
+
+    msgfmt -o en/LC_MESSAGES/messages.mo en/LC_MESSAGES/messages.po
