@@ -18,3 +18,4 @@ class Comment(Base):
     created = Column(DateTime(timezone=True), default=func.now(), nullable=False)
     marker_id = Column(Integer, nullable=False)
     user_id = Column(Integer, nullable=True)
+    status = Column(Text, nullable=False)

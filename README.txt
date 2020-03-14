@@ -24,11 +24,11 @@ Getting Started
 
     - Upgrade alembic revision.
 
-        venv/bin/alembic -c development.ini -x url="sqlite:///back.sqlite" upgrade head
+        venv/bin/alembic -c development.ini -x url="postgresql://localhost:5432/covid" upgrade head
 
     - If you need to generate your first revision.
 
-        venv/bin/alembic -c development.ini -x url="sqlite:///back.sqlite" revision --autogenerate -m "init"
+        venv/bin/alembic -c development.ini -x url="postgresql://localhost:5432/covid" revision --autogenerate -m "init"
 
 
     - Adding new revision, just omit the --autogenerate

@@ -12,6 +12,8 @@ from pyramid.httpexceptions import (
     HTTPFound,
 )
 
+from .default import parse_iso_date
+
 @view_config(route_name='add_comment', request_method='POST')
 def add_comment_post(request):
     name = request.params.get('name')
@@ -19,6 +21,8 @@ def add_comment_post(request):
     comment = request.params.get('comment')
     marker_id = request.params.get('marker_id')
     user_id = request.params.get('user_id')
+    status = request.params.get('status')
+    created = parse_iso_date(request.params.get('created_date'))
 
     new_comment = models.Comment(
         name = name,
@@ -26,6 +30,8 @@ def add_comment_post(request):
         comment = comment,
         marker_id = marker_id,
         user_id = request.authenticated_userid,
+        created = created,
+        status = status
     )
 
     request.dbsession.add(new_comment)
