@@ -1,3 +1,4 @@
+import re
 import datetime
 from pyramid.view import view_config
 from pyramid.response import Response
@@ -108,7 +109,9 @@ def home_post(request):
         if user is not None:
             print("found")
             # Check if user has email and if new email was provided
-            if email:
+            EMAIL_REGEX = re.compile(r"[^@]+@[^@]+\.[^@]+")
+            if email and EMAIL_REGEX.match(email):
+                # Use regex to check if email is valid
                 user.email = email
                 request.dbsession.flush()
             # Found previous user
@@ -191,7 +194,8 @@ def list_markers(request):
     max_date = request.params.get("max_date")
     only_owned = request.params.get("only_owned", False)
 
-    db_markers = request.dbsession.query(models.Marker).filter_by(deleted=False)
+    db_markers = request.dbsession.query(
+        models.Marker).filter_by(deleted=False)
 
     if min_date is not None:
         db_markers = db_markers.filter(models.Marker.reported_date >= min_date)
@@ -204,7 +208,6 @@ def list_markers(request):
     for m in db_markers:
         mtd = marker_to_dict(m, request.authenticated_userid)
 
-        # Find comments using filters
         db_comments = request.dbsession.query(models.Comment).filter_by(marker_id=mtd['id'])
         if min_date is not None:
             db_comments = db_comments.filter(models.Comment.created >= min_date)
