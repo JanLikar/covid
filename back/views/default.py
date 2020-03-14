@@ -22,7 +22,6 @@ def parse_iso_date(date):
 
 
 def marker_to_dict(marker, user_id):
-
     return {
         'id': marker.id,
         'lon': float(marker.longitude),
@@ -34,15 +33,16 @@ def marker_to_dict(marker, user_id):
         # 'comments': db_comments
     }
 
-def comment_to_dict(comment):
 
+def comment_to_dict(comment):
     return {
         'id': comment.id,
         'name': comment.name,
         'note': comment.email,
         'comment': comment.comment,
-        'commented_date': comment.commented_date.strftime('%Y-%m-%d'),
+        'commented_date': comment.created.strftime('%Y-%m-%d'),
     }
+
 
 def locale_to_coords(locale):
     """Return a tuple of coordinates, coresponding to the default map location for the given locale."""

@@ -1,9 +1,9 @@
 from sqlalchemy import (
     func,
     Column,
+    DateTime,
     Integer,
     Text,
-    Date
 )
 
 from .meta import Base
@@ -12,9 +12,9 @@ from .meta import Base
 class Comment(Base):
     __tablename__ = 'comments'
     id = Column(Integer, primary_key=True)
-    email = Column(Text())
-    name = Column(Text())
+    email = Column(Text, nullable=False)
+    name = Column(Text, nullable=False)
     comment = Column(Text(), nullable=False)
-    commented_date = Column(Date, nullable=False)
+    created = Column(DateTime(timezone=True), default=func.now(), nullable=False)
     marker_id = Column(Integer, nullable=False)
-    user_id = Column(Integer)
+    user_id = Column(Integer, nullable=True)
