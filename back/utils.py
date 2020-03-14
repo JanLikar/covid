@@ -1,7 +1,15 @@
 import diceware
 import argparse
-def get_passphrase():
+from . import models
+def get_passphrase(request):
 
-    options = diceware.handle_options(['--num', '10'])
+    options = diceware.handle_options(['--num', '3'])
 
-    return diceware.get_passphrase(options)
+    dupes = ['fake_pass']
+    while len(dupes) > 0:
+        passphrase = diceware.get_passphrase(options)
+        # Check if already exists
+        dupes = request.dbsession.query(models.User).filter_by(
+            passphrase=passphrase).all()
+
+    return passphrase

@@ -57,7 +57,7 @@ def home(request):
     lon, lat = locale_to_coords(request.locale_name)
     return {
         'isotoday': get_iso_date(),
-        'gen_passphrase': get_passphrase(),
+        'gen_passphrase': get_passphrase(request),
         'default_lat': lon,
         'default_lon': lat,
     }
@@ -77,7 +77,7 @@ def home_post(request):
     if len(passphrase) <= 16:
         print("pass too short")
         return {'isotoday': get_iso_date(),
-                'gen_passphrase': get_passphrase()}
+                'gen_passphrase': get_passphrase(request)}
 
     if gen_passphrase == passphrase:
         print("pass is the same as generated pass - adding user")
@@ -110,7 +110,7 @@ def home_post(request):
 
     return {
         'isotoday': get_iso_date(),
-        'gen_passphrase': get_passphrase(),
+        'gen_passphrase': get_passphrase(request),
         'default_lat': lon,
         'default_lon': lat,
     }
