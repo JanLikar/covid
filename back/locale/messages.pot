@@ -58,3 +58,6 @@ msgstr ""
 msgid "comment_form_submit_button"
 msgstr ""
 
+msgid "comments_title"
+msgstr ""
+

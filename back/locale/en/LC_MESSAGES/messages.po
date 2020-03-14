@@ -86,3 +86,6 @@ msgstr "Comment about the location"
 
 msgid "comment_form_submit_button"
 msgstr "Add comment"
+
+msgid "comments_title"
+msgstr "Comments"

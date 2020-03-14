@@ -74,3 +74,19 @@ msgstr "Prijava"
 
 msgid "login_button_close"
 msgstr "Zapri"
+
+msgid "comment_form_label_name"
+msgstr "Polno ime"
+
+msgid "comment_form_label_email"
+msgstr "E-naslov (ni javno prikazan)"
+
+msgid "comment_form_label_comment"
+msgstr "Komentar povezan z lokacijo"
+
+msgid "comment_form_submit_button"
+msgstr "Dodaj komentar"
+
+msgid "comments_title"
+msgstr "Komentarji"
+

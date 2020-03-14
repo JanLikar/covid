@@ -216,7 +216,7 @@
       var popup = val.reported_date + " <b>" + val.name + " </b><br/><br/>" + val.note + '<br>'
 
       if(val.comments) {
-        popup = popup + "<br> <b>Comments</b><br>"
+        popup = popup + "<br> <b>{{ _('comments_title') }}</b><br>"
         val.comments.forEach(item => popup += '<br><b>' + item.commented_date + '</b><br>' + item.comment + '<br>');
       }
 
