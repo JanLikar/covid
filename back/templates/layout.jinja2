@@ -181,8 +181,12 @@
         load_markers();
     };
 
-    $('#map-filter-end').change(load_markers);
-    $('#map-filter-start').change(load_markers);
+    function filterChange(e) {
+        load_markers(false);
+    };
+
+    $('#map-filter-end').change(filterChange);
+    $('#map-filter-start').change(filterChange);
 
     $("#use-my-location").click(function() {
       if (navigator.geolocation) {
