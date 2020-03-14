@@ -74,3 +74,15 @@ msgstr "Login"
 
 msgid "login_button_close"
 msgstr "Close"
+
+msgid "comment_form_label_name"
+msgstr "Your full name"
+
+msgid "comment_form_label_email"
+msgstr "Your email (undisclosed)"
+
+msgid "comment_form_label_comment"
+msgstr "Comment about the location"
+
+msgid "comment_form_submit_button"
+msgstr "Add comment"

@@ -22,6 +22,7 @@ def parse_iso_date(date):
 
 
 def marker_to_dict(marker, user_id):
+
     return {
         'id': marker.id,
         'lon': float(marker.longitude),
@@ -30,8 +31,18 @@ def marker_to_dict(marker, user_id):
         'note': marker.note,
         'reported_date': marker.reported_date.strftime('%Y-%m-%d'),
         'owned': marker.user_id == user_id,
+        # 'comments': db_comments
     }
 
+def comment_to_dict(comment):
+
+    return {
+        'id': comment.id,
+        'name': comment.name,
+        'note': comment.email,
+        'comment': comment.comment,
+        'commented_date': comment.commented_date.strftime('%Y-%m-%d'),
+    }
 
 def locale_to_coords(locale):
     """Return a tuple of coordinates, coresponding to the default map location for the given locale."""
@@ -176,7 +187,16 @@ def list_markers(request):
     if only_owned:
         db_markers = db_markers.filter_by(user_id=request.authenticated_userid)
 
-    return [marker_to_dict(m, request.authenticated_userid) for m in db_markers]
+    markers = []
+    for m in db_markers:
+        mtd = marker_to_dict(m, request.authenticated_userid)
+
+        # Find comments
+        db_comments = request.dbsession.query(models.Comment).filter_by(marker_id=mtd['id']).all()
+        mtd['comments'] = [comment_to_dict(d) for d in db_comments]
+        markers.append(mtd)
+
+    return markers
 
 
 @view_config(route_name='logout')

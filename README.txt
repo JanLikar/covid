@@ -54,6 +54,4 @@ Locale
     cd back/locale
     vim messages.pot # add new entry
 
-    msgmerge --update en/LC_MESSAGES/messages.po messages.pot
-
-    msgfmt -o en/LC_MESSAGES/messages.mo en/LC_MESSAGES/messages.po
+    msgfmt -o back/locale/en/LC_MESSAGES/messages.mo back/locale/en/LC_MESSAGES/messages.po

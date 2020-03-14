@@ -45,3 +45,16 @@ msgstr ""
 
 msgid "close_session_button"
 msgstr ""
+
+msgid "comment_form_label_name"
+msgstr ""
+
+msgid "comment_form_label_email"
+msgstr ""
+
+msgid "comment_form_label_comment"
+msgstr ""
+
+msgid "comment_form_submit_button"
+msgstr ""
+
