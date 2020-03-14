@@ -114,6 +114,8 @@ def home_post(request):
                 # Use regex to check if email is valid
                 user.email = email
                 request.dbsession.flush()
+            else:
+                print("this is not a valid email address")
             # Found previous user
             headers = remember(request, user.id)
             return HTTPFound(location=request.route_url('add_marker'),
