@@ -6,6 +6,64 @@ A map that allows people with COVID-19 to mark their past locations to warn othe
 
 [Demo / staging](https://covid-staging.herokuapp.com/)
 
+
+## Seting up local environment
+The app is written in Python, using Pyramid framework.
+
+We use virtualenvs and docker-compose to simplify development.
+
+First, create a virtual environment.
+
+    python3 -m venv venv
+
+Install the Python dependencies.
+
+    venv/bin/pip install -e ".[testing]"
+
+
+If psycopg2 install fails, you might have some build dependencies missing. A possible workaround is to replace psycopg2 with psycopg2-binary.
+
+Run
+
+    docker-compose up -d
+
+to setup a PostgreSQL database.
+
+Then you must migrate the DB using
+
+    venv/bin/alembic -c development.ini -x url="postgresql://postgres:changeme@localhost/postgres" upgrade head
+
+(The -x argument is a hack, the connection string should ideally be taken from development.ini. See #58.)
+
+To load some sample data, run the following:
+
+    venv/bin/initialize_back_db development.ini
+
+Run the development server with
+
+    venv/bin/pserve development.ini
+
+
+### DB migrations
+    venv/bin/alembic -c development.ini -x url="postgresql://postgres:changeme@localhost/postgres" revision --autogenerate -m "init"
+
+### Translations
+After modifyning translation files, they need to be compiled from .mo to .po.
+
+    msgfmt -o back/locale/en/LC_MESSAGES/messages.mo back/locale/en/LC_MESSAGES/messages.po
+
+
+#### Adding translatable strings
+    cd back/locale
+    vim messages.pot # add new entry
+    vim back/locale/en/LC_MESSAGES/messages.mo
+
+#### Adding new translations
+Change XX into the desired locale name.
+
+    cp back/locale/messages.pot back/locale/XX/LC_MESSAGES/messages.po
+
+
 ## Contributing
 Pull requests are kindly accepted. Please assign yourself to a ticket, before starting.
 
