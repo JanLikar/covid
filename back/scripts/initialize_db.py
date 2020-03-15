@@ -20,6 +20,7 @@ def setup_models(dbsession):
         name='Some location name',
         note='Some additional note',
         reported_date=datetime.date(2020, 3, 10),
+        status=2,
     )
     dbsession.add(model)
     model = models.marker.Marker(
@@ -28,6 +29,7 @@ def setup_models(dbsession):
         name='Some location name',
         note='Some additional note',
         reported_date=datetime.date(2020, 3, 10),
+        status=2,
     )
     dbsession.add(model)
     user = models.user.User(
