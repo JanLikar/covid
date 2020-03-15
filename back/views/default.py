@@ -64,6 +64,13 @@ def locale_to_coords(locale):
 
 @view_config(route_name='home', renderer='../templates/index.jinja2')
 def home(request):
+
+    # Check session and whether to show intro modal or not
+    show_modal = 0
+    if not request.session.get('session_id'):
+        show_modal = 1
+        request.session['session_id'] = get_passphrase()
+
     lon, lat = locale_to_coords(request.locale_name)
     get_coordinates_from_address('Privoz 17c, Ljubljana')
     return {
@@ -71,6 +78,7 @@ def home(request):
         'gen_passphrase': get_passphrase(),
         'default_lat': lon,
         'default_lon': lat,
+        'show_modal': show_modal
     }
 
 

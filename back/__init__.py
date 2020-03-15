@@ -1,6 +1,6 @@
 from pyramid.config import Configurator
 from pyramid_heroku import expandvars_dict
-
+from pyramid.session import SignedCookieSessionFactory
 
 def main(global_config, **settings):
     """ This function returns a Pyramid WSGI application."""
@@ -16,4 +16,9 @@ def main(global_config, **settings):
         config.include('.security')
 
         config.scan()
+
+    # Defining sessions
+    session_secret = settings['session.secret']
+    session_factory = SignedCookieSessionFactory(session_secret)
+    config.set_session_factory(session_factory)
     return config.make_wsgi_app()
