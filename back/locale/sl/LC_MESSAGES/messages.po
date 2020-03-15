@@ -93,16 +93,16 @@ msgstr "Komentarji"
 msgid "add_comments_title"
 msgstr "Dodaj komentar"
 
-msgid "comment_form_label_status"
+msgid "marker_form_label_status"
 msgstr "Stanje okužbe"
 
-msgid "comment_form_label_status_suspicious"
+msgid "marker_form_label_status_suspicious"
 msgstr "Sum na okužbo"
 
-msgid "comment_form_label_status_infected"
+msgid "marker_form_label_status_infected"
 msgstr "Potrjena okužba"
 
-msgid "comment_form_label_status_healthy"
+msgid "marker_form_label_status_healthy"
 msgstr "Brez okužbe"
 
 msgid "comment_form_label_status_disinfected"

@@ -24,6 +24,7 @@ requires = [
     'SQLAlchemy',
     'transaction',
     'zope.sqlalchemy',
+    'geopy'
 ]
 
 tests_require = [
