@@ -22,6 +22,7 @@ def add_comment_post(request):
     marker_id = request.params.get('marker_id')
     user_id = request.params.get('user_id')
     status = request.params.get('status')
+    status = int(status) if status != "" else None
     created = parse_iso_date(request.params.get('created_date'))
 
     new_comment = models.Comment(
@@ -37,7 +38,7 @@ def add_comment_post(request):
     request.dbsession.add(new_comment)
     # Needed to get the ID
     request.dbsession.flush()
-
-    url = request.route_url('home')
+    # url = request.route_url('home')
+    url = request.referrer
 
     return HTTPFound(location=url)

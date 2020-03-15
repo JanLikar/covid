@@ -3,7 +3,7 @@ from pyramid.view import view_config
 from pyramid.response import Response
 
 from sqlalchemy.exc import DBAPIError
-from ..utils import get_passphrase
+from ..utils import *
 from .. import models
 from pyramid.security import forget
 from pyramid.security import remember
@@ -12,6 +12,12 @@ from pyramid.httpexceptions import (
     HTTPFound,
 )
 
+STATUS_LABELS = {
+    0: 'healthy',
+    1: 'suspicious',
+    2: 'infected',
+    3: 'disinfected'
+}
 
 def get_iso_date():
     return datetime.datetime.utcnow().strftime('%Y-%m-%d')
@@ -30,7 +36,8 @@ def marker_to_dict(marker, user_id):
         'note': marker.note,
         'reported_date': marker.reported_date.strftime('%Y-%m-%d'),
         'owned': marker.user_id == user_id,
-        'status': marker.status
+        'status': marker.status,
+        'status_label': STATUS_LABELS[marker.status]
     }
 
 
@@ -41,6 +48,7 @@ def comment_to_dict(comment):
         'note': comment.email,
         'comment': comment.comment,
         'status': comment.status,
+        'status_label': STATUS_LABELS[comment.status] if comment.status is not None else None,
         'commented_date': comment.created.strftime('%Y-%m-%d'),
     }
 
@@ -56,6 +64,7 @@ def locale_to_coords(locale):
 @view_config(route_name='home', renderer='../templates/index.jinja2')
 def home(request):
     lon, lat = locale_to_coords(request.locale_name)
+    get_coordinates_from_address('Privoz 17c, Ljubljana')
     return {
         'isotoday': get_iso_date(),
         'gen_passphrase': get_passphrase(),
@@ -142,6 +151,7 @@ def add_marker_post(request):
     name = request.params.get('name')
     note = request.params.get('note')
     status = request.params.get('status')
+    status = int(status) if status != "" else None
     reported_date = parse_iso_date(request.params.get('reported_date'))
 
     new_marker = models.Marker(
@@ -194,9 +204,8 @@ def list_markers(request):
     for m in db_markers:
         mtd = marker_to_dict(m, request.authenticated_userid)
 
-        # Find comments
+        # Find comments using filters
         db_comments = request.dbsession.query(models.Comment).filter_by(marker_id=mtd['id'])
-
         if min_date is not None:
             db_comments = db_comments.filter(models.Comment.created >= min_date)
         if max_date is not None:
@@ -205,15 +214,18 @@ def list_markers(request):
 
         mtd['comments'] = [comment_to_dict(d) for d in db_comments]
 
-        comments_status = [d['status'] for d in mtd['comments']]
+        comments_status = [d['status'] for d in mtd['comments']
+            if d['status'] is not None
+                ]
 
         if len(comments_status) > 0:
-            mtd['status'] = comments_status[-1]
+            mtd['cur_status'] = comments_status[-1]
+
+        mtd['cur_status_label'] = STATUS_LABELS[mtd.get('cur_status') or mtd['status']]
 
         markers.append(mtd)
 
     return markers
-
 
 @view_config(route_name='logout')
 def logout(request):

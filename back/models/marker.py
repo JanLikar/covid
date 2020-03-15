@@ -27,4 +27,4 @@ class Marker(Base):
                      onupdate=func.now(), nullable=False)
     user_id = Column(Integer, default=0, nullable=False)
     deleted = Column(Boolean(name='deleted_ck'), default=False)
-    status = Column(Text, nullable=False)
+    status = Column(Integer)
