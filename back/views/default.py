@@ -227,6 +227,16 @@ def list_markers(request):
 
     return markers
 
+@view_config(route_name='search_address', request_method='POST')
+def search_address_post(request):
+    address = request.params.get('search')
+
+    coordinates = get_coordinates_from_address(address)
+    print(coordinates)
+
+    return HTTPFound(location= request.referrer)
+
+
 @view_config(route_name='logout')
 def logout(request):
     headers = forget(request)
