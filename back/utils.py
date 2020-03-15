@@ -8,6 +8,7 @@ def get_passphrase():
 
     return diceware.get_passphrase(options)
 
+
 def get_coordinates_from_address(address):
     geolocator = Nominatim(user_agent="covid")
     location = geolocator.geocode(address)

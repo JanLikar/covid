@@ -4,7 +4,10 @@ from pyramid.view import view_config
 from pyramid.response import Response
 
 from sqlalchemy.exc import DBAPIError
-from ..utils import *
+from ..utils import (
+    get_coordinates_from_address,
+    get_passphrase,
+)
 from .. import models
 from pyramid.security import forget
 from pyramid.security import remember
@@ -72,7 +75,7 @@ def home(request):
         request.session['session_id'] = get_passphrase()
 
     lon, lat = locale_to_coords(request.locale_name)
-    get_coordinates_from_address('Privoz 17c, Ljubljana')
+
     return {
         'isotoday': get_iso_date(),
         'gen_passphrase': get_passphrase(),
@@ -238,6 +241,7 @@ def list_markers(request):
 
     return markers
 
+
 @view_config(route_name='search_address', xhr=True, request_method='POST', renderer='json')
 def search_address(request):
     address = request.params.get('search')
@@ -248,6 +252,7 @@ def search_address(request):
         'lat': coordinates[0],
         'lon': coordinates[1],
     }
+
 
 @view_config(route_name='logout')
 def logout(request):

@@ -122,7 +122,8 @@
 
         {% else %}
 
-          <form class="form-inline" action="{{ request.route_url('search_address') }}" method="POST">
+
+          <form id="search-address-form" class="form-inline" action="{{ request.route_url('search_address') }}" method="POST">
             <div class="input-group mb-3" style="width: 100%;">
               <input type="text" class="form-control form-control-lg" name="search" placeholder="Search Address">
               <div class="input-group-append">
