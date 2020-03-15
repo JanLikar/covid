@@ -249,7 +249,6 @@ def search_address(request):
         'lon': coordinates[1],
     }
 
-
 @view_config(route_name='logout')
 def logout(request):
     headers = forget(request)
