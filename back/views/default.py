@@ -230,14 +230,16 @@ def list_markers(request):
 
     return markers
 
-@view_config(route_name='search_address', request_method='POST')
-def search_address_post(request):
+@view_config(route_name='search_address', xhr=True, request_method='POST', renderer='json')
+def search_address(request):
     address = request.params.get('search')
 
     coordinates = get_coordinates_from_address(address)
-    print(coordinates)
 
-    return HTTPFound(location= request.referrer)
+    return {
+        'lat': coordinates[0],
+        'lon': coordinates[1],
+    }
 
 
 @view_config(route_name='logout')

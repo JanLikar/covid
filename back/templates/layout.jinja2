@@ -122,11 +122,11 @@
 
         {% else %}
           <br/><br/>
-          <form class="form-inline" action="search-address" method="POST">
+          <form id="search-address-form" class="form-inline" action="{{ request.route_url('search_address') }}" method="POST">
             <div class="form-group row" style="width: 100%">
               <div class="col-sm-12">
                 <label for="inputPassword2" class="sr-only">Password</label>
-                <input type="text" class="form-control" id="search" placeholder="Search Address"  style="width:80%">
+                <input type="text" class="form-control" id="search" name="search" placeholder="Search Address" style="width:80%">
                 <button type="submit" class="btn btn-primary2"><i class="fa fa-search"></i></button>
               </div>
             </div>
@@ -332,7 +332,6 @@
 </script>
 
   <script type="text/javascript" src="{{request.static_url('back:static/main.js')}}"></script>
-
 
     {% block bottom_js %}
     {% endblock %}
