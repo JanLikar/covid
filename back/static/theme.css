@@ -9,6 +9,25 @@ body, html, #mapid {
 .leaflet-popup-content{
   min-width: 200px;
 }
+
+.box{
+    padding:60px 0px;
+}
+
+.box-part{
+    background:#FFF;
+    border-radius:0;
+    padding:60px 10px;
+    margin:30px 0px;
+}
+.text{
+    margin:20px 0px;
+}
+
+.fa{
+     color:#4183D7;
+}
+
 /*
 @import url(//fonts.googleapis.com/css?family=Open+Sans:300,400,600,700);
 body {
