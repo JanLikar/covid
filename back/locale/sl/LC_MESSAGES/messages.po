@@ -39,7 +39,7 @@ msgid "marker_form_label_location_name"
 msgstr "Ime lokacije"
 
 msgid "marker_form_label_additional_information"
-msgstr "Podroben opis vape interakcije na izbrani lokaciji"
+msgstr "Podroben opis vaše interakcije na izbrani lokaciji"
 
 msgid "marker_form_submit_button"
 msgstr "Shrani"
