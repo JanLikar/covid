@@ -18,7 +18,7 @@ depends_on = None
 def upgrade():
     # Added server_default, because the migration fails on tables with existing rows.
     op.add_column('markers',
-        sa.Column('status', sa.Integer(), server_default=0, nullable=False),
+        sa.Column('status', sa.Integer(), server_default='0', nullable=False),
     )
     op.add_column('comments',
         sa.Column('status', sa.Integer()),
