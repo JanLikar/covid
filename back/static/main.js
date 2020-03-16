@@ -17,7 +17,7 @@ $(document).on('submit', form_selector, function(e) {
         data: $(this).serialize(),
         dataType: 'json',
         success: function( data ) {
-          map.flyTo(L.latLng(data.lat, data.lon));
+          map.flyTo(L.latLng(data.lat, data.lon), 16);
         },
         error: function( xhr, err ) {
           alert(err);
