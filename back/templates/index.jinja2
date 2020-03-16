@@ -25,7 +25,6 @@
   </div>
 </div> -->
 
-
   <div id="mapid" data-default-lat="{{ default_lat }}" data-default-lon="{{ default_lon }}"></div>
 
     <!-- Passphrase Popup start -->
@@ -62,5 +61,148 @@
       </div>
     </div>
     <!-- Passphrase Popup end-->
+
+    <!-- Modal: modalQuickView -->
+  <div class="modal fade" id="modalHomepage" tabindex="-1" role="dialog" aria-labelledby="modalHomepageLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-body">
+          <div class="row">
+
+            <div class="col-lg-12">
+              <h2 class="h2-responsive product-name text-center">
+                <strong>{{ _("title") }}</strong>
+              </h2>
+              <h4 class="h4-responsive  text-center">
+                <span class="green-text">
+                  <strong>Spread awareness to get Covid-19 virus off our neighbourhoods</strong>
+                </span>
+              </h4>
+              <div class="modal-body">
+                <div class="text-center">
+                  <p>To prevent the spread of Covid-19, the best way is to stay home and not to be a medium of this virus.</p>
+
+                  <p>You might be young and healthy so have a higher chance of survival, but you might indirectly result in the infection and death of others who are old and weak, can you live with that?</p>
+
+                  <p>We need to unite and protect the old and weak who are endangered by this virus.</p>
+                </div>
+              </div>
+              <!-- Accordion wrapper -->
+
+
+              <div class="col-lg-12">
+                <div class="box">
+                <div class="container">
+                  <div class="row">
+
+                      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" style="border: 1px solid lightgrey; border-radius: 10px">
+
+                      <div class="box-part text-center">
+
+                                    <i class="fa fa-eye fa-3x" aria-hidden="true"></i>
+
+                        <div class="title">
+                          <h4>Concerned?</h4>
+                        </div>
+
+                        <div class="text">
+                          <p>Click the below button to check streets and neighbourhoods where infected people have been.</p>
+                          <p>Be aware of the infections around the place you live, work or regularly visit.</p>
+                        </div>
+
+                        <a href="#" onclick="$('#modalHomepage').modal('hide')" class="btn btn-primary" role="button">Check areas that might be infected</a>
+
+                       </div>
+                    </div>
+
+                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" style="border: 1px solid lightgrey; border-radius: 10px">
+
+                      <div class="box-part text-center">
+
+                          <i class="fa fa-bug fa-3x" aria-hidden="true"></i>
+
+                        <div class="title">
+                          <h4>(Suspicious) Infected? </h4>
+                        </div>
+
+                        <div class="text">
+                          <p>Click the below button to mark places you have visited in the past few days, so people can be informed.</p>
+                          <p>Spread awareness to help protect the neighbourhoods.</p>
+                        </div>
+
+                        <a href="#" onclick="$('#modalHomepage').modal('hide');$('#passphrase-popup').modal('show');" class="btn btn-primary">Mark my infectious movement</a>
+
+                       </div>
+                    </div>
+
+
+
+                </div>
+                </div>
+                <!--/.Carousel Wrapper-->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="modalAbout" tabindex="-1" role="dialog" aria-labelledby="modalAboutLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-body">
+          <div class="row">
+
+            <div class="col-lg-12">
+              <h2 class="h2-responsive product-name text-center">
+                <strong>About us</strong>
+              </h2>
+              <h4 class="h4-responsive  text-center">
+                <span class="green-text">
+                  <p>We are a group of developers from Europe concerned about peoples' health in the light of Covid-19 virus outbreak.</p>
+                </span>
+              </h4>
+              <div class="modal-body">
+                <div class="text-center">
+                  <p>We strongly advise everyone to stay at home unless absolutely needed to go outside. If you need to go outside for any urgent reason, this application can help you see what streets and buildings have been in touch with infected people, so you can avoid areas with dense infections.</p>
+
+                  <p>The application offers anyone who is suspicious, self-isolating or has confirmed infection, to mark their movements on the map in the past days or weeks, so to spread awareness about areas for other people to avoid.</p>
+
+                  <p>We developed this application with a goal of providing concerned people a tool to see infected areas in their neighbourhoods, and for infected people to report their whereabouts and spread awareness about Covid-19 spread.</p>
+
+                  <p>We allow anyone to add data points and anyone to comment on added markers and provide also status changes in case a building was disinfected after being in touch with a suspicious or infected person.</p>
+
+                  <p>We do not own any data and rely on people's good judgement when adding data points. Each person that decides to add data points is responsible for accurate placement and description of the markers.</p>
+                </div>
+
+                <h3>Contact us</h3>
+                <div class="row">
+                  <div class="card col-sm-12">
+                    <div class="card-body">
+                      <h5 class="card-title">covid-report.com</h5>
+                      <h6 class="card-subtitle mb-2 text-muted">Spread awareness about the virus within Europe and Worldwide</h6>
+                      <p class="card-text">Developed by open source community. Contributions from Una Larisa Pecovnik, Jan Likar, Gabrijel Persin</p>
+                      <a href="mailto:support@covid-report.com" class="card-link">support@covid-report.com</a>
+
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+              <!-- Accordion wrapper -->
+
+
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
 {% endblock %}

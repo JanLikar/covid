@@ -29,11 +29,12 @@
   </head>
   <body data-logged-in="{{ request.user_logged_in }}">
     <div class="row" style="height:100%; width:100%; padding:0; margin:0">
-      <div class="col-lg-3" style="box-shadow: 0 0 20px rgba(0, 0, 0, 0.3); z-index: 1000;">
+      <div class="col-sm-3" style="box-shadow: 0 0 20px rgba(0, 0, 0, 0.3); z-index: 1000; padding-bottom: 15px;">
         <div class="container">
 
           <nav class="navbar navbar-expand-lg navbar-light rounded">
-            <div class="collapse navbar-collapse">
+            <div class="navbar-collapse"  style="display: inherit">
+
               <ul class="navbar-nav mr-auto">
                 <!-- START language selector -->
                 <li class="nav-item dropdown">
@@ -52,22 +53,21 @@
                 <!-- END language selector -->
               </ul>
 
-              <a href="javascript:" style="color: black;font-size:24px;" id="use-my-location" data-toggle="tooltip" title="{{ _('use_my_location_tooltip') }}"><i class="fa fa-location-arrow"></i></a>
+              <a href="#" onclick='$("#modalAbout").modal("show");' style="color: black;font-size:36px; padding-left: 20px" id="about-modal"  title="{{ _('use_my_location_tooltip') }}"><i class="fa fa-address-card"></i></a>
+
+              <a href="javascript:" style="color: black;font-size:36px; padding-left: 20px" id="use-my-location" data-toggle="tooltip" title="{{_('use_my_location_tooltip') }}"><i class="fa fa-location-arrow"></i></a>
+
+              <a href="#" onclick='$("#modalHomepage").modal("show");' style="color: black;font-size:36px; padding-left: 20px" id="use-my-location" data-toggle="tooltip" title="{{ _('use_my_location_tooltip') }}"><i class="fa fa-question"></i></a>
+
+
             </div>
         </nav>
 
 
-        <h1>{{ _("title") }}</h1>
+        <!-- <h1>{{ _("title") }}</h1> -->
 
-        <h4>{{ _("call_to_action_title") }}</h4>
-        <p>{{ _("call_to_action_text") }}</p>
-        {% if not request.authenticated_userid %}
-          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#passphrase-popup">
-              {{ _("call_to_action_button") }}
-            </button>
-        {% else %}
-            <a href="{{ request.route_url('logout') }}" class="btn btn-secondary active" role="button">{{ _("close_session_button") }}</a>
-        {% endif %}
+        <!-- <h4>{{ _("call_to_action_title") }}</h4> -->
+        <!-- <p>{{ _("call_to_action_text") }}</p> -->
 
         {% if request.authenticated_userid %}
 
@@ -121,27 +121,38 @@
           </form>
 
         {% else %}
-          <br/><br/>
+
+
           <form id="search-address-form" class="form-inline" action="{{ request.route_url('search_address') }}" method="POST">
-            <div class="form-group row" style="width: 100%">
-              <div class="col-sm-12">
-                <label for="inputPassword2" class="sr-only">Password</label>
-                <input type="text" class="form-control" id="search" name="search" placeholder="Search Address" style="width:80%">
-                <button type="submit" class="btn btn-primary2"><i class="fa fa-search"></i></button>
+            <div class="input-group mb-3" style="width: 100%;">
+              <input type="text" class="form-control form-control-lg" name="search" placeholder="Search Address">
+              <div class="input-group-append">
+                <button class="btn btn-primary" style="color: white" type="submit"><i class="fa fa-search" style="color: white"></i></button>
               </div>
             </div>
-
           </form>
-          <input type="date" id="map-filter-start" name="map-filter-start" value="2020-03-01" min="2020-03-01" max="{{ isotoday }}" required>
-          <input type="date" id="map-filter-end" name="map-filter-end" value="{{ isotoday }}" min="2020-03-10" max="{{ isotoday }}" required>
+
+          <div class="form-group">
+            <label for="map-filter-start">Filter infectious locations by dates</label>
+              <div class='input-group date' id='datetimepicker1'>
+                  <input type="date" id="map-filter-start" name="map-filter-start" value="2020-03-01" min="2020-03-01" max="{{ isotoday }}" class="form-control form-control-lg" required>
+                  <input type="date" id="map-filter-end" name="map-filter-end" value="{{ isotoday }}" min="2020-03-10" max="{{ isotoday }}" class="form-control form-control-lg" required>
+              </div>
+          </div>
 
 
         {% endif %}
       </div>
 
-
+    {% if not request.authenticated_userid %}
+          <button type="button"  class="btn btn-primary btn-lg btn-block shadow p-3 mb-5 rounded" data-toggle="modal" data-target="#passphrase-popup" style="margin-bottom: 0rem!important;">
+              {{ _("call_to_action_button") }}
+            </button>
+        {% else %}
+            <a href="{{ request.route_url('logout') }}" class="btn btn-secondary active" role="button">{{ _("close_session_button") }}</a>
+        {% endif %}
     </div>
-    <div class="col-sm-9" style="padding: 0">
+    <div class="col-sm-9" style="padding: 0;height:100%">
       {% block content %}
           <p>No content</p>
       {% endblock content %}
@@ -230,13 +241,13 @@
     function add_map_marker(map, val) {
       color = 'red'
       console.log(val.status)
-      if(val.status == 1){
+      if(val.cur_status == 1){
         // suspicious
         color = '#ff7b00';
-      } else if(val.status == 0){
+      } else if(val.cur_status == 0){
         // healthy
         color = '#b8b5b2';
-      } else if(val.status == 3){
+      } else if(val.cur_status == 3){
         // disinfected
         color = '#b8b5b2';
       }
@@ -332,6 +343,16 @@
 </script>
 
   <script type="text/javascript" src="{{request.static_url('back:static/main.js')}}"></script>
+
+  <script>
+
+    $(document).ready(function(){
+      if({{show_modal}}){
+          $("#modalHomepage").modal('show');
+        };
+    });
+
+</script>
 
     {% block bottom_js %}
     {% endblock %}
