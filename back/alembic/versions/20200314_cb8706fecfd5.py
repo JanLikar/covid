@@ -17,7 +17,7 @@ depends_on = None
 
 def upgrade():
     op.add_column('markers',
-        sa.Column('status', sa.Integer(), nullable=False),
+        sa.Column('status', sa.Integer(), default=0, nullable=False),
     )
     op.add_column('comments',
         sa.Column('status', sa.Integer()),
