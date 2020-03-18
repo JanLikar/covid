@@ -67,7 +67,7 @@ def locale_to_coords(locale):
 
 @view_config(route_name='home', renderer='../templates/index.jinja2')
 def home(request):
-    print(request.ul)
+    print(request.url)
     # Check session and whether to show intro modal or not
     show_modal = 0
     if not request.session.get('session_id'):
