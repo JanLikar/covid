@@ -31,7 +31,7 @@ to setup a PostgreSQL database.
 
 Then you must migrate the DB using
 
-    venv/bin/alembic -c development.ini -x url="postgresql://postgres:changeme@localhost/postgres" upgrade head
+    venv/bin/alembic -c development.ini upgrade head
 
 (The -x argument is a hack, the connection string should ideally be taken from development.ini. See #58.)
 
@@ -45,7 +45,7 @@ Run the development server with
 
 
 ### DB migrations
-    venv/bin/alembic -c development.ini -x url="postgresql://postgres:changeme@localhost/postgres" revision --autogenerate -m "init"
+    venv/bin/alembic -c development.ini revision --autogenerate -m "init"
 
 ### Translations
 After modifyning translation files, they need to be compiled from .mo to .po.
@@ -71,4 +71,3 @@ Your branch should be based on the staging branch. After merging to staging, the
 
 When testing is completed, we pull the changes into master, which gets deployed to production.
 
-See README.txt for environment setup.
