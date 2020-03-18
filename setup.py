@@ -17,6 +17,7 @@ requires = [
     'waitress',
     'alembic',
     'diceware',
+    'gunicorn',
     'pyramid_force_https',
     'pyramid_raven',
     'pyramid_retry',

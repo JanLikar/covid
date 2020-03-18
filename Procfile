@@ -1,2 +1,2 @@
 release: ./heroku/release.sh
-web: pserve production.ini http_port=$PORT
+web: gunicorn --paste etc/production.ini --bind :$PORT --workers=3
