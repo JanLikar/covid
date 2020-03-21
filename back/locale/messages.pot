@@ -11,6 +11,15 @@ msgstr ""
 msgid "use_my_location_tooltip"
 msgstr ""
 
+msgid "legal_tooltip"
+msgstr ""
+
+msgid "about_tooltip"
+msgstr ""
+
+msgid "help_tooltip"
+msgstr ""
+
 # index.jinja2
 msgid "call_to_action_title"
 msgstr ""

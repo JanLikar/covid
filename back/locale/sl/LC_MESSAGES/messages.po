@@ -11,6 +11,15 @@ msgstr "Uporabi mojo lokacijo"
 msgid "use_my_location_tooltip"
 msgstr "Lokacija se bo shranila v vaš brskalnik."
 
+msgid "legal_tooltip"
+msgstr "Pravne informacije"
+
+msgid "about_tooltip"
+msgstr "O nas"
+
+msgid "help_tooltip"
+msgstr "Pomoč"
+
 # index.jinja2
 msgid "call_to_action_title"
 msgstr "Ste okuženi s Covid-19?"

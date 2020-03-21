@@ -11,6 +11,16 @@ msgstr "Use my location"
 msgid "use_my_location_tooltip"
 msgstr "Uses your browser's local storage"
 
+msgid "legal_tooltip"
+msgstr "Legal information"
+
+msgid "about_tooltip"
+msgstr "About us"
+
+msgid "help_tooltip"
+msgstr "Help"
+
+
 # index.jinja2
 msgid "call_to_action_title"
 msgstr "Infected with COVID-19?"
