@@ -52,7 +52,7 @@ def comment_to_dict(comment):
         'note': comment.email,
         'comment': comment.comment,
         'status': comment.status,
-        'status_label': STATUS_LABELS[comment.status] if comment.status is not None else None,
+        'status_label': STATUS_LABELS[int(comment.status)] if comment.status is not None else None,
         'commented_date': comment.created.strftime('%Y-%m-%d'),
     }
 
@@ -199,6 +199,33 @@ def remove_marker(request):
     return {}
 
 
+@view_config(route_name='marker_popup', xhr=True, renderer='../templates/marker_popup.jinja2')
+def marker_popup(request):
+    marker_id = int(request.matchdict.get('marker_id'))
+    marker = request.dbsession.query(models.Marker).filter_by(
+        id=marker_id,
+        deleted=False,
+    ).first()
+
+    db_comments = request.dbsession.query(models.Comment).filter_by(
+        marker_id=marker_id,
+    ).order_by(models.Comment.created)
+    comments = [comment_to_dict(c) for c in db_comments]
+
+    last_status = marker.status
+
+    comment_statuses = [c['status'] for c in comments if c is not None]
+    if len(comment_statuses) > 0:
+        last_status = comment_statuses[-1]
+
+    return {
+        'marker': marker_to_dict(marker, request.authenticated_userid),
+        'comments': comments,
+        'isotoday': get_iso_date(),
+        'current_status_label': STATUS_LABELS[int(last_status)],
+    }
+
+
 @view_config(route_name='list_markers', renderer='json')
 def list_markers(request):
     min_date = request.params.get("min_date")
@@ -215,31 +242,7 @@ def list_markers(request):
     if only_owned:
         db_markers = db_markers.filter_by(user_id=request.authenticated_userid)
 
-    markers = []
-    for m in db_markers:
-        mtd = marker_to_dict(m, request.authenticated_userid)
-
-        db_comments = request.dbsession.query(models.Comment).filter_by(marker_id=mtd['id'])
-        if min_date is not None:
-            db_comments = db_comments.filter(models.Comment.created >= min_date)
-        if max_date is not None:
-            db_comments = db_comments.filter(models.Comment.created <= max_date)
-        db_comments = db_comments.order_by(models.Comment.created)
-
-        mtd['comments'] = [comment_to_dict(d) for d in db_comments]
-
-        comments_status = [d['status'] for d in mtd['comments']
-            if d['status'] is not None
-                ]
-
-        if len(comments_status) > 0:
-            mtd['cur_status'] = comments_status[-1]
-
-        mtd['cur_status_label'] = STATUS_LABELS[mtd.get('cur_status') or mtd['status']]
-
-        markers.append(mtd)
-
-    return markers
+    return [marker_to_dict(m, request.authenticated_userid) for m in db_markers]
 
 
 @view_config(route_name='search_address', xhr=True, request_method='POST', renderer='json')

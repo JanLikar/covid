@@ -13,6 +13,7 @@ def includeme(config):
     config.add_route('add_marker', 'add-marker')
     config.add_route('remove_marker', 'remove-marker/{marker_id}')
     config.add_route('list_markers', 'list-markers')
+    config.add_route('marker_popup', 'marker-popup/{marker_id}')
     config.add_route('add_comment', 'add-comment')
     config.add_route('search_address', 'search-address')
 
