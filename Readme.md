@@ -7,6 +7,11 @@ A map that allows people with COVID-19 to mark their past locations to warn othe
 [Demo / staging](https://covid-staging.herokuapp.com/)
 
 
+## Embeding the map
+
+    <iframe src="https://www.covid-report.com/embed-map"></iframe>
+
+
 ## Seting up local environment
 The app is written in Python, using Pyramid framework.
 

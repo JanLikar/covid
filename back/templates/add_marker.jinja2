@@ -1,13 +1,21 @@
 {% extends "layout.jinja2" %}
 {% block content%}
-
-
     <div id="mapid" data-default-lat="{{ default_lat }}" data-default-lon="{{ default_lon }}"></div>
-
-
 {% endblock %}
 {% block bottom_js %}
   <script>
+    var markers= {};
+
+    var map = createMap("mapid");
+    loadMarkers(map, markers, true);
+
+    var default_location = [$('#mapid').data('default-lat'), $('#mapid').data('default-lon')];
+
+    var initial_lat = window.localStorage.getItem('lat') || default_location[0];
+    var initial_lon = window.localStorage.getItem('lon') || default_location[1];
+
+    map.setView([initial_lat, initial_lon], 8);
+
     var marker;
     map.on('click', function(e) {
       if(marker)

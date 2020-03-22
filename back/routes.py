@@ -16,4 +16,6 @@ def includeme(config):
     config.add_route('add_comment', 'add-comment')
     config.add_route('search_address', 'search-address')
 
+    config.add_route('embed_map', 'embed-map')
+
     config.add_route('acme', '.well-known/acme-challenge/qsNO-zNzXSX4yMncMJARDqWEu5AThIYsy5eGseyxQKA')

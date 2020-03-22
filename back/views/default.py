@@ -267,6 +267,11 @@ def acme(request):
     return Response('qsNO-zNzXSX4yMncMJARDqWEu5AThIYsy5eGseyxQKA.bxO0l_kg40uGCKYTyVY79r5ZUf-SN87ty2ERrJcxsfo')
 
 
+@view_config(route_name='embed_map', renderer='../templates/embed_map.jinja2')
+def embed_map(request):
+    return {}
+
+
 @view_config(context=Exception)
 def system_error_view(context, request):
     request.raven.captureException()

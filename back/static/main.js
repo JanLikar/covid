@@ -1,23 +1,21 @@
 "use strict";
 
-var map = L.map('mapid');
-var markers = {};
 
-// London
-var default_location = [$('#mapid').data('default-lat'), $('#mapid').data('default-lon')];
+function createMap(mapId) {
+    var map = L.map(mapId);
 
-var initial_lat = window.localStorage.getItem('lat') || default_location[0];
-var initial_lon = window.localStorage.getItem('lon') || default_location[1];
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '&copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap contributors</a>'
+    }).addTo(map);
 
-map.setView([initial_lat, initial_lon], 8);
+    map.setView([0,0], 2);
 
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    maxZoom: 19,
-    attribution: '&copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap contributors</a>'
-  }).addTo(map);
+    return map;
+};
 
 
-function load_markers(map, data, only_owned=false) {
+function loadMarkers(map, markers, only_owned=false) {
     var min_date_element = $('#map-filter-start');
     var max_date_element = $('#map-filter-end');
 
@@ -42,19 +40,6 @@ function load_markers(map, data, only_owned=false) {
     });
 };
 
-if ($('body').data('logged-in') == "True") {
-    load_markers(map, markers, true);
-}
-else {
-    load_markers(map, markers);
-};
-
-function filterChange(e) {
-    load_markers(map, markers, false);
-};
-
-$('#map-filter-end').change(filterChange);
-$('#map-filter-start').change(filterChange);
 
 $("#use-my-location").click(function() {
   if (navigator.geolocation) {
