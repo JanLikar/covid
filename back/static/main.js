@@ -70,6 +70,7 @@ $(document).on('click', '.remove-marker', function (e) {
   });
 });
 
+
 function setLanguage(value) {
     setCookie("_LOCALE_", value, 14);
     location.reload();
