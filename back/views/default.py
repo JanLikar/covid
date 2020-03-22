@@ -214,7 +214,7 @@ def marker_popup(request):
 
     last_status = marker.status
 
-    comment_statuses = [c['status'] for c in comments if c is not None]
+    comment_statuses = [c['status'] for c in comments if c['status'] is not None]
     if len(comment_statuses) > 0:
         last_status = comment_statuses[-1]
 
