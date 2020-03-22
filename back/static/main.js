@@ -17,7 +17,7 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
   }).addTo(map);
 
 
-function load_markers(only_owned=false) {
+function load_markers(map, data, only_owned=false) {
     var min_date_element = $('#map-filter-start');
     var max_date_element = $('#map-filter-end');
 
@@ -43,14 +43,14 @@ function load_markers(only_owned=false) {
 };
 
 if ($('body').data('logged-in') == "True") {
-    load_markers(true);
+    load_markers(map, markers, true);
 }
 else {
-    load_markers();
+    load_markers(map, markers);
 };
 
 function filterChange(e) {
-    load_markers(false);
+    load_markers(map, markers, false);
 };
 
 $('#map-filter-end').change(filterChange);
